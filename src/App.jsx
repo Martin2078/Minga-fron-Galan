@@ -24,8 +24,8 @@ export default function App() {
             <h1 className='lg:text-5xl	text-white font-["Roboto"] lg:block min-[320px]:hidden font-bold'>Your favorite comic book store ✨</h1>
             <h1 className='lg:hidden md:block	text-white font-["Roboto"] sm:text-5xl md:text-6xl min-[320px]:text-4xl min-[320px]:w-5/6 font-bold'>Your favorite comic book store</h1>
             <p className='lg:text-2xl text-white w-4/6 font-["Roboto"] lg:block min-[320px]:hidden'>Explore our catalog to live the adventure of <br /> your life</p>
-            <p className='text-xl lg:hidden min-[320px]:block text-white w-4/6 font-["Roboto"]'>From classics to novelties, we have everything you need to immerse yourself in your favorite universes. <br /> Explore our catalog and live the adventure of your life.</p>
-            <button className='lg:bg-gradient-to-r from-[#4338CA] to-[#5E52F3] rounded text-[#FFFFFF] w-fit font-["Roboto"] lg:py-1 lg:px-12 lg:text-2xl min-[320px]:text-3xl min-[320px]:py-4 min-[320px]:w-4/6 min-[320px]:rounded-full min-[320px]:bg-[#4338CA] '>Let's go!</button>
+            <p className='min-[320px]:text-sm sm:text-xl lg:hidden min-[320px]:block text-white min-[320px]:w-4/6 md:w-3/6 font-["Roboto"]'>From classics to novelties, we have everything you need to immerse yourself in your favorite universes. Explore our catalog and live the adventure of your life.</p>
+            <button className='lg:bg-gradient-to-r from-[#4338CA] to-[#5E52F3] lg:rounded text-[#FFFFFF] lg:w-fit font-["Roboto"] lg:py-1.5 lg:px-20 lg:text-2xl min-[320px]:text-2xl min-[320px]:py-2 min-[320px]:w-4/6 min-[320px]:rounded-full min-[320px]:bg-[#4338CA] sm:py-4 sm:text-3xl '>Let's go!</button>
           </div>
         </div>
 
