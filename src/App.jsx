@@ -1,13 +1,10 @@
-import NavBar from './components/NavBar';
-import Index from './pages/Index'
-import Footer from './components/Footer'
+import Layout from "./layouts/Layout"
+import Home from './pages/Index'
 export default function App() {
 
   return (
     <div className='w-full h-full bg-[#EBEBEB] flex flex-col'>
-      <NavBar/>
-      <Index/>
-      <Footer/> 
+      <Layout children={<Home/>}/>
     </div>
   )
 }
