@@ -28,7 +28,7 @@ console.log(count)
 
             <div className='w-1/4 text-justify absolute right-60'>
               <h2 className='text-2xl text-[#FFFFFF] font-sans["Roboto"]'>{categories[count]?.name}</h2>
-              <p className='text-min-[320px] text-[#FFFFFF] font-["Roboto"] font leading-3'>{categories[count]?.description}</p>
+              <p className='text-min-[320px] text-[#FFFFFF] font-["Roboto"] font leading-4'>{categories[count]?.description}</p>
             </div>
 
             </div>

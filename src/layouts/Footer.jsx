@@ -2,7 +2,7 @@ import imagenFooter from '../../public/images/footer.png'
 import logoFooter from '../../public/images/logo-footer.png'
 import logoFooter2 from '../../public/images/logo-footer2.png'
 import React from 'react'
-
+import { Link } from "react-router-dom";
 const footer = () => {
   return (
     <footer className='h-auto min-[320px]:top-full '>
@@ -11,8 +11,8 @@ const footer = () => {
           <div className='flex lg:h-24  justify-center lg:bg-white min-[320px]:bg-gray-600 min-[320px]:h-fit'>
             <div className='lg:w-10/12 h-fit flex lg:justify-between lg:items-end lg:flex-row min-[320px]:py-5 min-[320px]:px-12 min-[320px]:flex-col min-[320px]:w-full min-[320px]:justify-center min-[320px]:items-center min-[320px]:gap-6'>
             <div className='flex font-bold lg:gap-32 lg:flex-row lg:text-min-[320px] lg:text-black min-[320px]:flex-col min-[320px]:gap-2 min-[320px]:text-xl min-[320px]:text-center min-[320px]:text-white'>
-              <a href="">Home</a>
-              <a href="">Mangas</a>
+              <Link to="/">Home</Link>
+              <Link to="/Mangas">Mangas</Link>
             </div>
 
             <div className='flex'>
