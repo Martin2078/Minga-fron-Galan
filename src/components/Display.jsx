@@ -1,5 +1,6 @@
 import React from 'react'
 import cruz from '../../public/images/cruz.png'
+import {Link} from 'react-router-dom'
 const Display = ({open,setOpen}) => {
   return (
     <>
@@ -8,15 +9,15 @@ const Display = ({open,setOpen}) => {
         <img className='w-8 p-2 ' src={cruz} alt=""/> 
       </button>
       <div className='text-white flex flex-col gap-5 p-5 border-b-2'>
-        <button className='flex justify-center py-2 px-3 rounded-full '>Home</button>
-        <button className='flex justify-center py-2 px-3 rounded-full'>Mangas</button>
+        <Link to={"/"} className='flex justify-center py-2 px-3 rounded-full '>Home</Link>
+        <Link to={"/Mangas"} className='flex justify-center py-2 px-3 rounded-full'>Mangas</Link>
       </div>
       <div className='text-white border-b-2 flex flex-col items-center px-3 pt-2 pb-4 gap-4'>
         <p className='font-bold'>Join Us</p>
         <button></button>
         <div className='flex gap-6'>
-        <button className=' py-2 px-4 rounded-full '>Log In</button>
-        <button className=' py-2 px-3 rounded-full'>Sign Up</button>
+        <Link className=' py-2 px-4 rounded-full '>Log In</Link>
+        <Link className=' py-2 px-3 rounded-full'>Sign Up</Link>
         </div>
       </div>
     </div>
