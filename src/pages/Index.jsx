@@ -7,7 +7,6 @@ const Index = () => {
     <main className='flex flex-col lg:h-screen min-[320px]:h-full'>
 
         <Welcome/>
-
         <div className='w-full h-2/6 lg:flex items-center justify-center min-[320px]:hidden'>
           <Carrousel/>
         </div>

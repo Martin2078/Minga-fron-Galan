@@ -9,14 +9,14 @@ const Carrousel = () => {
 
   useEffect(()=>{
     axios("https://minga-back-vyqy.onrender.com/categories")
-     .then(res=> {setCategories(res.data.categories); console.log(categories)})
+     .then(res=> setCategories(res.data.categories))
      .catch(error=>console.log(error))  
 }, [])
  
 let next =() => (count!==categories.length-1) ? setCount(count + 1) : setCount(0);
   
 let prev =()=> (count!==0) ?  setCount(count-1) : setCount(categories.length-1);
-console.log(count)
+
 
 
   return (
