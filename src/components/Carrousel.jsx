@@ -8,7 +8,7 @@ const Carrousel = () => {
 
 
   useEffect(()=>{
-    axios("http://localhost:8080/categories")
+    axios("http://localhost:4000/categories")
      .then(res=> setCategories(res.data.response))
      .catch(error=>console.log(error))  
 }, [])
