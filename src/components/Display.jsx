@@ -1,6 +1,7 @@
 import React from 'react'
 import cruz from '../../public/images/cruz.png'
 import {Link} from 'react-router-dom'
+
 const Display = ({open,setOpen}) => {
   return (
     <>
@@ -16,8 +17,9 @@ const Display = ({open,setOpen}) => {
         <p className='font-bold'>Join Us</p>
         <button></button>
         <div className='flex gap-6'>
-        <Link className='py-2 px-4 rounded-full'>Log In</Link>
-        <Link className='py-2 px-3 rounded-full'>Sign Up</Link>
+        <Link className=' py-2 px-4 rounded-full '>Log In</Link>
+        <Link className=' py-2 px-3 rounded-full'>Sign Up</Link>
+        <Link to={"/Me"} className='py-2 px-3 rounded-full '>Profile</Link>
         </div>
       </div>
     </div>
