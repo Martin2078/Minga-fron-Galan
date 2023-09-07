@@ -14,7 +14,16 @@ const router=createBrowserRouter([
                 element: <Index/>,
             },
             {
-                path:"/Mangas",
+                path:"/mangas",
+                element: <Mangas/>,
+
+            },
+            {
+                path:"/mangas/:page",
+                element: <Mangas/>,
+            },
+            {
+                path:"/mangas/:id",
                 element: <Mangas/>,
             }, 
             {
