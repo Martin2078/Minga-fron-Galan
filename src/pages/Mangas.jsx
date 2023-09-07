@@ -32,14 +32,15 @@ const Mangas = () => {
       console.log(error)
     }
   }
-  function pagination(start,max) {
-  let template=[]
+  function pagination(start, max) {
+    let template = []
     for (let i = start; i < max; i++) {
-    template.push(<button className={`${page == i ? "text-blue-700 font-bold" : ""}`} onClick={() => setPage(i)}>{i}...</button>)
+      template.push(<button className={`${page == i ? "text-blue-700 font-bold" : ""}`} onClick={() => setPage(i)}>{i}...</button>)
     }
-  return template
+    template.push(<button className={`${page == max ? "text-blue-700 font-bold" : ""}`} onClick={() => setPage(max)}>{max}...</button>)
+    return template
   }
-  function activos(id,color,hover) {
+  function activos(id, color, hover) {
     if (!check.includes(id)) {
       return color
     } else {
@@ -77,7 +78,7 @@ const Mangas = () => {
           <div className='w-3/6 flex justify-evenly mb-10 mt-5 min-[320px]:gap-2 lg:gap-0'>
             <button onClick={() => { setCheck([]); setText(""); search.value = "" }} className='lg:block min-[320px]:hidden rounded-full p-2 px-3 bg-[#999]'>todos</button>
             {(categories?.length > 0) ? categories.map((category) => (
-              <button onClick={() => { checkeados(category._id); setPage(1);}} className='rounded-full lg:p-2 lg:px-3 min-[320px]:p-1 min-[320px]:px-2 border ' key={category._id} style={{ backgroundColor: activos(category._id,category.color,category.hover), color:activos(category._id,category.hover,category.color)}}>
+              <button onClick={() => { checkeados(category._id); setPage(1); }} className='rounded-full lg:p-2 lg:px-3 min-[320px]:p-1 min-[320px]:px-2 border ' key={category._id} style={{ backgroundColor: activos(category._id, category.color, category.hover), color: activos(category._id, category.hover, category.color) }}>
                 {category?.name}
               </button>
             )
@@ -111,8 +112,8 @@ const Mangas = () => {
 
           <div className='flex items-center gap-2 mt-10'>
             <button className={`${prev ? "" : "hidden"}`} onClick={() => setPage(page - 1)}><img className='rotate-180' src="../../public/images/pagination-arrow.png" alt="" /></button>
-            {(maxPages>3) ? pagination(1,maxPages) : pagination(1,maxPages) }
-            <button className={`${page == maxPages ? "text-blue-700 font-bold" : ""}`} onClick={() => setPage(maxPages)}>{maxPages}...</button>
+            {(maxPages==0)?(<button className="text-blue-700 font-bold" onClick={() => setPage(1)}>1...</button>) 
+            : pagination(1, maxPages)}
             <button className={`${next ? "" : "hidden"}`} onClick={() => setPage(page + 1)} ><img src="../../public/images/pagination-arrow.png" alt="" /></button>
           </div>
 
