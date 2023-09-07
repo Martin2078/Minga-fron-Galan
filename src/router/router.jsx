@@ -3,6 +3,7 @@ import {createBrowserRouter} from 'react-router-dom'
 import Index from '../pages/Index'
 import Mangas from '../pages/Mangas'
 import Layout from '../layouts/Layout'
+import Page from '../pages/Page'
 
 const router=createBrowserRouter([
     {
@@ -16,7 +17,11 @@ const router=createBrowserRouter([
             {
                 path:"/Mangas",
                 element: <Mangas/>,
-            } 
+            },
+            {
+                path:"/chapter/:id/:page",
+                element: <Page/>,
+            }
         ],
     },
 ])

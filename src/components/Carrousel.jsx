@@ -6,11 +6,17 @@ const Carrousel = () => {
   const [count,setCount]=useState(0)
   const [categories,setCategories]=useState([])
 
+  async function getCategoriesData (){
+    try {
+      let {data} = await axios("http://localhost:4000/categories")
+      setCategories(data.response)  
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   useEffect(()=>{
-    axios("localhost:4000/categories")
-     .then(res=> setCategories(res.data.categories))
-     .catch(error=>console.log(error))  
+    getCategoriesData()
 }, [])
  
 let next =() => (count!==categories.length-1) ? setCount(count + 1) : setCount(0);
