@@ -12,7 +12,7 @@ const Mangas = () => {
   const [maxPages, setMaxPages] = useState()
   const [next, setNext] = useState()
   const [prev, setPrev] = useState()
-  const [active, setActive] = useState([])
+
   async function getMangas() {
     try {
       let { data } = await axios(`http://localhost:4000/mangas?page=${page}&title=${text}&category=${check.join(",")}`)
@@ -32,7 +32,13 @@ const Mangas = () => {
       console.log(error)
     }
   }
-
+  function pagination(start,max) {
+  let template=[]
+    for (let i = start; i < max; i++) {
+    template.push(<button className={`${page == i ? "text-blue-700 font-bold" : ""}`} onClick={() => setPage(i)}>{i}...</button>)
+    }
+  return template
+  }
   function activos(id,color,hover) {
     if (!check.includes(id)) {
       return color
@@ -80,8 +86,8 @@ const Mangas = () => {
           </div>
 
           <div className='flex flex-wrap gap-8 justify-center h-fit lg:w-5/6 lg:flex-row min-[320px]:flex-col min-[320px]:items-center  min-[320px]:w-full'>
-            {(mangas.length > 0) ? mangas.map((manga) => (
-              <Link to={`/manga/:${manga._id}`} key={manga._id} className='flex items-center lg:w-2/6 min-[320px]:w-5/6 justify-between rounded-xl bg-white pl-3 shadow-lg lg:hover:scale-110 border-l-amber-700'>
+            {(mangas?.length > 0) ? mangas.map((manga) => (
+              <Link to={`/manga/${manga._id}`} key={manga._id} className='flex items-center lg:w-2/6 min-[320px]:w-5/6 justify-between rounded-xl bg-white pl-3 shadow-lg lg:hover:scale-110 border-l-amber-700'>
 
                 <div className='py-5 px-0 flex flex-col items-start w-7/12 h-full justify-between'>
                   <div>
@@ -92,7 +98,7 @@ const Mangas = () => {
                       }
                     })}</p>
                   </div>
-                  <Link to={"/manga/:id"} className='p-1 px-6 bg-green-200 text-green-600 text-sm rounded-xl lg:flex min-[320px]:hidden lg:mt-10'>Read</Link>
+                  <button className='p-1 px-6 bg-green-200 text-green-600 text-sm rounded-xl lg:flex min-[320px]:hidden lg:mt-10'>Read</button>
                 </div>
 
                 <div className='w-5/12 flex justify-end'>
@@ -105,9 +111,7 @@ const Mangas = () => {
 
           <div className='flex items-center gap-2 mt-10'>
             <button className={`${prev ? "" : "hidden"}`} onClick={() => setPage(page - 1)}><img className='rotate-180' src="../../public/images/pagination-arrow.png" alt="" /></button>
-            <button className={`${page == 1 ? "text-blue-700 font-bold" : ""}`} onClick={() => setPage(1)}>{maxPages - 3}...</button>
-            <button className={`${page == 2 ? "text-blue-700 font-bold" : ""}`} onClick={() => setPage(2)}>{maxPages - 2}...</button>
-            <button className={`${page == 3 ? "text-blue-700 font-bold" : ""}`} onClick={() => setPage(3)}>{maxPages - 1}...</button>
+            {(maxPages>3) ? pagination(1,maxPages) : pagination(1,maxPages) }
             <button className={`${page == maxPages ? "text-blue-700 font-bold" : ""}`} onClick={() => setPage(maxPages)}>{maxPages}...</button>
             <button className={`${next ? "" : "hidden"}`} onClick={() => setPage(page + 1)} ><img src="../../public/images/pagination-arrow.png" alt="" /></button>
           </div>
