@@ -50,9 +50,9 @@ const Page = () => {
         <>
             <div className='h-screen w-full'>
                 {chapter?.pages?.length > 0 ?
-                (<><PageHeader number={chapter?.order} title={chapter?.title} />
-                <MangaPage currentPage={chapter.pages[count - 1]} funcPrev={prevPage} funcNext={nextPage}/>
-                <PageComments /></>): ("")}
+                    (<><PageHeader number={chapter?.order} title={chapter?.title} />
+                        <MangaPage currentPage={chapter.pages[count - 1]} funcPrev={prevPage} funcNext={nextPage} />
+                        <PageComments /></>) : ("")}
             </div>
         </>
     )
