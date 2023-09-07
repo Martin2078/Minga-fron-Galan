@@ -3,7 +3,7 @@ import {createBrowserRouter} from 'react-router-dom'
 import Index from '../pages/Index'
 import Mangas from '../pages/Mangas'
 import Layout from '../layouts/Layout'
-
+import Profile from '../pages/Profile'
 const router=createBrowserRouter([
     {
         path:"/",
@@ -16,7 +16,8 @@ const router=createBrowserRouter([
             {
                 path:"/mangas",
                 element: <Mangas/>,
-            } ,
+
+            },
             {
                 path:"/mangas/:page",
                 element: <Mangas/>,
@@ -24,7 +25,11 @@ const router=createBrowserRouter([
             {
                 path:"/mangas/:id",
                 element: <Mangas/>,
-            }
+            }, 
+            {
+                path:"/Me",
+                element: <Profile/>,
+            } 
         ],
     },
 ])
