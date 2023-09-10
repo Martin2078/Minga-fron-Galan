@@ -14,7 +14,7 @@ const router=createBrowserRouter([
                 element: <Index/>,
             },
             {
-                path:"/Mangas",
+                path:"/mangas",
                 element: <Mangas/>,
             } 
         ],
