@@ -65,10 +65,10 @@ const Mangas = () => {
       <div className='h-fit w-full flex flex-col items-center'>
 
 
-        <div className="w-full  bg-cover flex flex-col justify-center items-center lg:gap-20 min-[320px]:gap-10 bg-[url('../public/images/fondo-mangas.png')] lg:bg-center min-[320px]:bg-center min-[320px]:h-[290px] lg:h-[500px]">
+        <div className="w-full  bg-cover flex flex-col justify-center items-center lg:gap-20 min-[320px]:gap-10 bg-url('/fondo-mangas.png') lg:bg-center min-[320px]:bg-center min-[320px]:h-[290px] lg:h-[500px]">
           <h1 className='lg:text-5xl min-[320px]:text-4xl min-[320px]:mt-6	text-white font-["Roboto"] font-bold'>Mangas</h1>
           <div className='lg:w-3/6 min-[320px]:w-5/6 bg-white flex items-center  lg:rounded-lg lg:px-4 lg:py-1 gap-2 min-[320px]:rounded-full min-[320px]:py-2 min-[320px]:px-2'>
-            <button className='bg-white rounded'><img src="../../public/images/search-icon.png" alt="" /></button>
+            <button className='bg-white rounded'><img src="../images/search-icon.png" alt="" /></button>
             <input id='search' onInput={(e) => { setText(e.target.value); setPage(1) }} type="search" className='w-full h-8 border-none text-center' placeholder='Find Your Manga Here' />
           </div>
         </div>
@@ -111,10 +111,10 @@ const Mangas = () => {
           </div>
 
           <div className='flex items-center gap-2 mt-10'>
-            <button className={`${prev ? "" : "hidden"}`} onClick={() => setPage(page - 1)}><img className='rotate-180' src="../../public/images/pagination-arrow.png" alt="" /></button>
+            <button className={`${prev ? "" : "hidden"}`} onClick={() => setPage(page - 1)}><img className='rotate-180' src="/pagination-arrow.png" alt="" /></button>
             {(maxPages==0)?(<button className="text-blue-700 font-bold" onClick={() => setPage(1)}>1...</button>) 
             : pagination(1, maxPages)}
-            <button className={`${next ? "" : "hidden"}`} onClick={() => setPage(page + 1)} ><img src="../../public/images/pagination-arrow.png" alt="" /></button>
+            <button className={`${next ? "" : "hidden"}`} onClick={() => setPage(page + 1)} ><img src="/pagination-arrow.png" alt="" /></button>
           </div>
 
         </div>

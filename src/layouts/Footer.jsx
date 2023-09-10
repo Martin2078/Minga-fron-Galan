@@ -1,6 +1,6 @@
-import imagenFooter from '../images/footer.png'
-import logoFooter from '../images/logo-footer.png'
-import logoFooter2 from '../images/logo-footer2.png'
+import imagenFooter from '/images/footer.png'
+import logoFooter from '/images/logo-footer.png'
+import logoFooter2 from '/images/logo-footer2.png'
 import React from 'react'
 import { Link } from "react-router-dom";
 const footer = () => {
@@ -22,10 +22,10 @@ const footer = () => {
 
             <div className='flex flex-col items-center gap-5'>
               <div className='flex justify-between items-center w-5/6'>
-                <a href=""><img src="../images/facebook-black.svg" alt="" /></a>
-                <a href=""><img src="../images/twitter-black.svg" alt="" /></a>
-                <a href=""><img src="../images/vimeo-black.svg" alt="" /></a>
-                <a href=""><img src="../images/youtube-black.svg" alt="" /></a>
+                <a href=""><img src="/facebook-black.svg" alt="" /></a>
+                <a href=""><img src="/twitter-black.svg" alt="" /></a>
+                <a href=""><img src="/vimeo-black.svg" alt="" /></a>
+                <a href=""><img src="/youtube-black.svg" alt="" /></a>
               </div>
               <button className=' flex w-5/6 gap-1 justify-center items-center px-20 py-1 bg-gradient-to-r from-[#4338CA] to-[#5E52F3] rounded-3xl text-white'>Donate<img className='h-3' src="../images/Union.png" alt="" /></button>
             </div>

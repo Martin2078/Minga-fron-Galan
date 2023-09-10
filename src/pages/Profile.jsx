@@ -1,12 +1,9 @@
 import React from 'react'
-import cruz from '../../public/images/cruz.png'
-import {Link} from 'react-router-dom'
 import User from './User'
 import axios from 'axios'
 import { useState } from 'react'
 import Author from './Author'
 import { useEffect } from 'react'
-import Perfil from '../components/Perfil'
 
 const Profile = () => {
 
