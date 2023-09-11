@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import logo from '/images/logo.png';
-import menu from '/images/menu.png';
+import menu from '/images/Menu.png';
 import Display from '../components/Display'
 import {Link as Button} from 'react-router-dom'
 const NavBar = () => {

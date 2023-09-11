@@ -15,7 +15,7 @@ const Mangas = () => {
 
   async function getMangas() {
     try {
-      let { data } = await axios(`http://localhost:4000/mangas?page=${page}&title=${text}&category=${check.join(",")}`)
+      let { data } = await axios(`http://localhost:4000/api/mangas?page=${page}&title=${text}&category=${check.join(",")}`)
       setMangas(data.response)
       setMaxPages(data.pages.maxPages)
       setNext(data.pages.next)
@@ -26,7 +26,7 @@ const Mangas = () => {
   }
   async function getCategories() {
     try {
-      let { data } = await axios("http://localhost:4000/categories")
+      let { data } = await axios("http://localhost:4000/api/categories")
       setCategories(data.response)
     } catch (error) {
       console.log(error)
@@ -65,7 +65,7 @@ const Mangas = () => {
       <div className='h-fit w-full flex flex-col items-center'>
 
 
-        <div className="w-full  bg-cover flex flex-col justify-center items-center lg:gap-20 min-[320px]:gap-10 bg-url('/fondo-mangas.png') lg:bg-center min-[320px]:bg-center min-[320px]:h-[290px] lg:h-[500px]">
+        <div className="w-full  bg-cover flex flex-col justify-center items-center lg:gap-20 min-[320px]:gap-10 bg-[url('../images/fondo-mangas.png')] lg:bg-center min-[320px]:bg-center min-[320px]:h-[290px] lg:h-[500px]">
           <h1 className='lg:text-5xl min-[320px]:text-4xl min-[320px]:mt-6	text-white font-["Roboto"] font-bold'>Mangas</h1>
           <div className='lg:w-3/6 min-[320px]:w-5/6 bg-white flex items-center  lg:rounded-lg lg:px-4 lg:py-1 gap-2 min-[320px]:rounded-full min-[320px]:py-2 min-[320px]:px-2'>
             <button className='bg-white rounded'><img src="../images/search-icon.png" alt="" /></button>
@@ -88,7 +88,7 @@ const Mangas = () => {
 
           <div className='flex flex-wrap gap-8 justify-center h-fit lg:w-5/6 lg:flex-row min-[320px]:flex-col min-[320px]:items-center  min-[320px]:w-full'>
             {(mangas?.length > 0) ? mangas.map((manga) => (
-              <Link to={`/manga/${manga._id}`} key={manga._id} className='flex items-center lg:w-2/6 min-[320px]:w-5/6 justify-between rounded-xl bg-white pl-3 shadow-lg lg:hover:scale-110 border-l-amber-700'>
+              <Link to={`${manga._id}`} key={manga._id} className='flex items-center lg:w-2/6 min-[320px]:w-5/6 justify-between rounded-xl bg-white pl-3 shadow-lg lg:hover:scale-110 border-l-amber-700'>
 
                 <div className='py-5 px-0 flex flex-col items-start w-7/12 h-full justify-between'>
                   <div>
@@ -111,10 +111,10 @@ const Mangas = () => {
           </div>
 
           <div className='flex items-center gap-2 mt-10'>
-            <button className={`${prev ? "" : "hidden"}`} onClick={() => setPage(page - 1)}><img className='rotate-180' src="/pagination-arrow.png" alt="" /></button>
+            <button className={`${prev ? "" : "hidden"}`} onClick={() => setPage(page - 1)}><img className='rotate-180' src="../images/pagination-arrow.png" alt="" /></button>
             {(maxPages==0)?(<button className="text-blue-700 font-bold" onClick={() => setPage(1)}>1...</button>) 
             : pagination(1, maxPages)}
-            <button className={`${next ? "" : "hidden"}`} onClick={() => setPage(page + 1)} ><img src="/pagination-arrow.png" alt="" /></button>
+            <button className={`${next ? "" : "hidden"}`} onClick={() => setPage(page + 1)} ><img src="../images/pagination-arrow.png" alt="" /></button>
           </div>
 
         </div>

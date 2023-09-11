@@ -8,7 +8,7 @@ const Carrousel = () => {
 
   async function getCategoriesData (){
     try {
-      let {data} = await axios("http://localhost:4000/categories")
+      let {data} = await axios("http://localhost:4000/api/categories")
       setCategories(data.response)  
     } catch (error) {
       console.log(error)
