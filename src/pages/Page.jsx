@@ -41,7 +41,7 @@ const Page = () => {
             setCount(count - 1)
             navigate("/chapter/" + id + "/" + (Number(page) - 1))
         } else {
-            navigate("/manga/" + chapter.manga_id)
+            navigate("/mangas/" + chapter.manga_id)
         }
 
     }

@@ -9,7 +9,6 @@ const Profile = () => {
 
 const[hasAuthor, setHasAuthor] = useState(false)
 const [usuario, setUsuario] = useState({})
-const [author, setAuthor] = useState("")
 
 useEffect(()=>{
  
