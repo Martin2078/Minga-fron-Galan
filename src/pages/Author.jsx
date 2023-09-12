@@ -22,6 +22,7 @@ const Author =(props)=>{
 let getMangas=()=>{
     axios(`http://localhost:4000/mangas/${user.authorUser_id}`)
    .then(res=> {
+    console.log(res)
     let data = res.data.respuesta.response
     
     setMangas(data)

@@ -17,6 +17,7 @@ const Mangas = () => {
     try {
       let { data } = await axios(`http://localhost:4000/mangas?page=${page}&title=${text}&category=${check.join(",")}`)
       setMangas(data.response)
+      console.log(data)
       setMaxPages(data.pages.maxPages)
       setNext(data.pages.next)
       setPrev(data.pages.prev)
