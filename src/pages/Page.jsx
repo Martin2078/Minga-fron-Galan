@@ -4,7 +4,6 @@ import MangaPage from '../components/MangaPage'
 import PageComments from '../components/PageComments'
 import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { data } from 'autoprefixer'
 
 const Page = () => {
     let { id, page } = useParams()
@@ -12,7 +11,7 @@ const Page = () => {
     let [count, setCount] = useState(Number(page))
     let [next, setNext] = useState("")
     let navigate = useNavigate()
-    const APIurl = "http://localhost:4000/api"
+    const APIurl = "http://localhost:4000"
     async function getChapter() {
         try {
             const { data } = await axios(APIurl + "/chapters/" + id)

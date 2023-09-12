@@ -1,5 +1,5 @@
 import React from 'react'
-import flechaManga from '../../public/images/Arrow_2.svg'
+import flechaManga from '/images/Arrow_2.svg'
 
 
 const MangaPage = ({ currentPage, funcPrev, funcNext }) => {
