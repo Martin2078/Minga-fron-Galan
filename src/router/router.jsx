@@ -5,6 +5,7 @@ import Mangas from '../pages/Mangas'
 import Layout from '../layouts/Layout'
 import Page from '../pages/Page'
 import Profile from '../pages/Profile'
+import SignIn from '../pages/signIn'
 
 const router=createBrowserRouter([
     {
@@ -19,6 +20,10 @@ const router=createBrowserRouter([
                 path:"/mangas",
                 element: <Mangas/>,
 
+            },
+            {
+                path:"/signIn",
+                element: <SignIn/>
             },
             {
                 path:"/mangas/:page",

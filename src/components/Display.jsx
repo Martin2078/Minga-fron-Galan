@@ -17,7 +17,7 @@ const Display = ({open,setOpen}) => {
         <p className='font-bold'>Join Us</p>
         <button></button>
         <div className='flex gap-6'>
-        <Link className=' py-2 px-4 rounded-full '>Log In</Link>
+        <Link to={"/signIn"} className=' py-2 px-4 rounded-full '>Log In</Link>
         <Link className=' py-2 px-3 rounded-full'>Sign Up</Link>
         <Link to={"/Me"} className='py-2 px-3 rounded-full '>Profile</Link>
         </div>
