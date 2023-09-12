@@ -15,7 +15,7 @@ const Mangas = () => {
 
   async function getMangas() {
     try {
-      let { data } = await axios(`http://localhost:4000/api/mangas?page=${page}&title=${text}&category=${check.join(",")}`)
+      let { data } = await axios(`http://localhost:4000/mangas?page=${page}&title=${text}&category=${check.join(",")}`)
       setMangas(data.response)
       setMaxPages(data.pages.maxPages)
       setNext(data.pages.next)
@@ -26,7 +26,7 @@ const Mangas = () => {
   }
   async function getCategories() {
     try {
-      let { data } = await axios("http://localhost:4000/api/categories")
+      let { data } = await axios("http://localhost:4000/categories")
       setCategories(data.response)
     } catch (error) {
       console.log(error)

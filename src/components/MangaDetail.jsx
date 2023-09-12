@@ -4,6 +4,7 @@ import axios from 'axios'
 import MangaInfo from './MangaInfo'
 import MangaButton from './MangaButton'
 import MangaContent from './MangaContent'
+import MangaRating from './MangasRating'
 
 let MangaDetail = () => {
   let { id } = useParams()
@@ -15,9 +16,10 @@ let MangaDetail = () => {
   let [ showChapters, setShowChapters ] = useState(false)
 
   useEffect(() => {
-    axios.get(`http://localhost:4000/api/mangas/${id}`)
+    axios.get(`http://localhost:4000/mangas/${id}`)
       .then((response) => {
-        setManga(response.data)
+        console.log(response.data.response)
+        setManga(response.data.response)
       })
       .catch((err) => {
         console.log('Error al obtener los detalles del manga: ', err)
@@ -25,11 +27,11 @@ let MangaDetail = () => {
   }, [id])
 
   useEffect(() => {
-    axios.get(`http://localhost:4000/api/chapters?manga_id=${id}&page=${currentPage}`)
+    axios.get(`http://localhost:4000/chapters?manga_id=${id}&page=${currentPage}`)
       .then((response) => {
-        setChapters(response.data.chapters)
-        setHasPrev(response.data.prev)
-        setHasNext(response.data.next)
+        setChapters(response.data.response)
+        setHasPrev(response.data.hasPrev)
+        setHasNext(response.data.hasNext)
       })
       .catch((err) => {
         console.log('Error al obtener los capítulos: ', err)
@@ -38,7 +40,8 @@ let MangaDetail = () => {
 
   return (
     <div>
-      <MangaInfo title={manga?.title} cover_photo={manga?.cover_photo} categories={manga?.category_id.name} />
+      <MangaInfo title={manga?.title} cover_photo={manga?.cover_photo} categories={manga?.category_id?.name} />
+      <MangaRating />
       <MangaButton {...{ showChapters, setShowChapters }} />
       <MangaContent
         {...{
@@ -47,7 +50,7 @@ let MangaDetail = () => {
           hasPrev,
           hasNext,
           showChapters,
-          onPageChange: setCurrentPage, // Pasa setCurrentPage como onPageChange
+          onPageChange: setCurrentPage
         }}
       />
     </div>

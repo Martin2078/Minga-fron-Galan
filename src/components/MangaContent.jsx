@@ -2,18 +2,19 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const MangaContent = (props) => {
-  const { manga, chapters, hasPrevPage, hasNextPage, showChapters, onPageChange } = props
+  const { manga, chapters, hasPrev, hasNext, showChapters, onPageChange } = props
+  console.log(chapters)
   const [currentPage, setCurrentPage] = useState(1)
 
   const handlePrevPage = () => {
-    if (hasPrevPage) {
+    if (hasPrev) {
       setCurrentPage((prev) => prev - 1)
       onPageChange(currentPage - 1)
     }
   }
 
   const handleNextPage = () => {
-    if (hasNextPage) {
+    if (hasNext) {
       setCurrentPage((prev) => prev + 1)
       onPageChange(currentPage + 1)
     }
@@ -29,28 +30,28 @@ const MangaContent = (props) => {
                 <div className='flex items-center justify-evenly'>
                   <img
                     className='w-20 h-20 p-2'
-                    src={manga?.cover_photo}
+                    src={chapter?.cover_photo}
                     alt='cover_chapter'
                   />
                   <div className='flex flex-col ml-2 gap-2'>
-                    <Link to={`/chapter/${chapter?._id}/1`}>{chapter?.title}</Link>
+                    <p>{chapter?.title}</p>
                     <div className='flex'>
-                      <img src='../public/image/icon_comment.png' alt='icon_comment' />
+                      <img src='../images/icon_comment.png' alt='icon_comment' />
                       <p>N° XX</p>
                     </div>
                   </div>
-                  <p className='text-white bg-gradient-to-b from-pink-300 to-pink-500 rounded-full w-20 h-10 text-center font-bold text-xl'>
+                  <Link to={`/chapter/${chapter?._id}/1`}><p className='text-white bg-gradient-to-b from-pink-300 to-pink-500 rounded-full w-20 h-10 text-center font-bold text-xl'>
                     read
-                  </p>
+                  </p></Link>
                 </div>
               </li>
             ))}
           </ul>
           <div className='flex justify-center'>
-            {hasPrevPage && (
+            {hasPrev && (
               <button className='text-white bg-gradient-to-b from-pink-300 to-pink-500 rounded-md w-32 h-10 text-sm my-4 ml-2' onClick={handlePrevPage}>Página anterior</button>
             )}
-            {hasNextPage && (
+            {hasNext && (
               <button className='text-white bg-gradient-to-b from-pink-300 to-pink-500 rounded-md w-32 h-10 text-sm my-4 ml-2' onClick={handleNextPage}>Página siguiente</button>
             )}
           </div>
