@@ -1,5 +1,5 @@
 import React from 'react'
-import cruz from '../../public/images/cruz.png'
+import cruz from '/images/cruz.png'
 import {Link} from 'react-router-dom'
 
 const Display = ({open,setOpen}) => {

@@ -6,6 +6,7 @@ import Layout from '../layouts/Layout'
 import Page from '../pages/Page'
 import Profile from '../pages/Profile'
 import ChapterForm from '../pages/Chapter-form'
+import MangaDetail from '../components/MangaDetail'
 
 const router=createBrowserRouter([
     {
@@ -22,13 +23,22 @@ const router=createBrowserRouter([
 
             },
             {
+                path:"/mangas/:id",
+                element: <MangaDetail/>
+            },
+            {
                 path:"/mangas/:page",
                 element: <Mangas/>,
             },
             {
+                path:"/chapters",
+                element: <MangaDetail/>
+            },
+            {
                 path:"/chapter/:id/:page",
                 element: <Page/>,
-            },{
+            },
+            {
                 path:"/mangas/:id",
                 element: <Mangas/>,
             }, 

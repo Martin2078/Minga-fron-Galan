@@ -4,7 +4,6 @@ import MangaPage from '../components/MangaPage'
 import PageComments from '../components/PageComments'
 import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { data } from 'autoprefixer'
 
 const Page = () => {
     let { id, page } = useParams()
@@ -42,7 +41,7 @@ const Page = () => {
             setCount(count - 1)
             navigate("/chapter/" + id + "/" + (Number(page) - 1))
         } else {
-            navigate("/manga/" + chapter.manga_id)
+            navigate("/mangas/" + chapter.manga_id)
         }
 
     }
