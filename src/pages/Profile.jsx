@@ -29,7 +29,7 @@ let handleHasAuthor=(data)=>{
   }
 }
 let getUser = () => {
-  axios("http://localhost:4000/authors/64f1645c46d9719d0b8048e1")
+  axios("http://localhost:4000/authors/64f1645c46d9719d0b8048e3")
    .then(res=> {
     
     let data = res.data.response.profile
