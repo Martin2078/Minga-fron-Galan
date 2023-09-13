@@ -5,6 +5,7 @@ import Mangas from '../pages/Mangas'
 import Layout from '../layouts/Layout'
 import Page from '../pages/Page'
 import Profile from '../pages/Profile'
+import SignIn from '../pages/signIn'
 import MangaDetail from '../components/MangaDetail'
 
 const router=createBrowserRouter([
@@ -19,7 +20,10 @@ const router=createBrowserRouter([
             {
                 path:"/mangas",
                 element: <Mangas/>,
-
+            },
+            {
+                path:"/signIn",
+                element: <SignIn/>
             },
             {
                 path:"/mangas/:id",
@@ -37,10 +41,6 @@ const router=createBrowserRouter([
                 path:"/chapter/:id/:page",
                 element: <Page/>,
             },
-            {
-                path:"/mangas/:id",
-                element: <Mangas/>,
-            }, 
             {
                 path:"/Me",
                 element: <Profile/>,
