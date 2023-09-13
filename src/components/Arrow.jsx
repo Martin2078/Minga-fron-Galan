@@ -1,4 +1,4 @@
-import flecha from '../../public/images/arrow-right.svg'
+import flecha from '/images/arrow-right.svg'
 import React from 'react'
 
 const Arrow = ({props,func}) => {

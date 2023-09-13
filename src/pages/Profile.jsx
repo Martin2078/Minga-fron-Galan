@@ -1,18 +1,14 @@
 import React from 'react'
-import cruz from '../../public/images/cruz.png'
-import {Link} from 'react-router-dom'
 import User from './User'
 import axios from 'axios'
 import { useState } from 'react'
 import Author from './Author'
 import { useEffect } from 'react'
-import Perfil from '../components/Perfil'
 
 const Profile = () => {
 
 const[hasAuthor, setHasAuthor] = useState(false)
 const [usuario, setUsuario] = useState({})
-const [author, setAuthor] = useState("")
 
 useEffect(()=>{
  
@@ -29,7 +25,7 @@ let handleHasAuthor=(data)=>{
   }
 }
 let getUser = () => {
-  axios("http://localhost:4000/authors/64f1645c46d9719d0b8048e1")
+  axios("http://localhost:4000/authors/64f1645c46d9719d0b8048e3")
    .then(res=> {
     
     let data = res.data.response.profile

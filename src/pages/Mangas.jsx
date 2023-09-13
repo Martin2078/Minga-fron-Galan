@@ -65,10 +65,10 @@ const Mangas = () => {
       <div className='h-fit w-full flex flex-col items-center'>
 
 
-        <div className="w-full  bg-cover flex flex-col justify-center items-center lg:gap-20 min-[320px]:gap-10 bg-[url('../public/images/fondo-mangas.png')] lg:bg-center min-[320px]:bg-center min-[320px]:h-[290px] lg:h-[500px]">
+        <div className="w-full  bg-cover flex flex-col justify-center items-center lg:gap-20 min-[320px]:gap-10 bg-[url('../images/fondo-mangas.png')] lg:bg-center min-[320px]:bg-center min-[320px]:h-[290px] lg:h-[500px]">
           <h1 className='lg:text-5xl min-[320px]:text-4xl min-[320px]:mt-6	text-white font-["Roboto"] font-bold'>Mangas</h1>
           <div className='lg:w-3/6 min-[320px]:w-5/6 bg-white flex items-center  lg:rounded-lg lg:px-4 lg:py-1 gap-2 min-[320px]:rounded-full min-[320px]:py-2 min-[320px]:px-2'>
-            <button className='bg-white rounded'><img src="../../public/images/search-icon.png" alt="" /></button>
+            <button className='bg-white rounded'><img src="../images/search-icon.png" alt="" /></button>
             <input id='search' onInput={(e) => { setText(e.target.value); setPage(1) }} type="search" className='w-full h-8 border-none text-center' placeholder='Find Your Manga Here' />
           </div>
         </div>
@@ -91,6 +91,7 @@ const Mangas = () => {
               <Link to={`/manga/${manga._id}`} key={manga._id} className='flex items-center lg:w-2/6 min-[320px]:w-5/6 justify-between rounded-xl bg-white shadow-lg lg:hover:scale-110'>
                 <div className='px-[3px] lg:py-14 min-[320px]:py-10 mr-4 bg-[#8883F0]'></div>
                 <div className='py-5 px-0 flex flex-col items-start w-7/12 h-full gap-6'>
+
                   <div>
                     <h2 className='text-black font-bold lg:w-full min-[320px]:w-5/6'>{manga.title}</h2>
                     <p className='text-[#8883F0]'>{categories.map((category) => {
@@ -110,7 +111,7 @@ const Mangas = () => {
             }
           </div>
 
-          <div className='flex items-center gap-2 mt-10'>
+        <div className='flex items-center gap-2 mt-10'>
             <button className={`${prev ? "" : "hidden"}`} onClick={() => setPage(page - 1)}><img className='rotate-180' src="../../public/images/pagination-arrow.png" alt="" /></button>
             {(maxPages==0)?(<button className="text-blue-700 font-bold" onClick={() => setPage(1)}>1...</button>) 
             : pagination(1, maxPages)}

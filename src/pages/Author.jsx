@@ -9,7 +9,6 @@ import NewsAuthor from '../components/NewsAuthor'
 
 
 const Author =(props)=>{
-    const[hasAuthor, setHasAuthor] = useState(false)
     const [mangas, setMangas] = useState([])
     const [tipo, setTipo] = useState("")
     const{user} = props
@@ -20,8 +19,9 @@ const Author =(props)=>{
       },[])
       
 let getMangas=()=>{
-    axios(`http://localhost:4000/mangas/${user.authorUser_id}`)
+    axios(`http://localhost:4000/mangas/news/${user.authorUser_id}`)
    .then(res=> {
+    console.log(res)
     let data = res.data.respuesta.response
     
     setMangas(data)
@@ -46,7 +46,7 @@ const funcion = (data)=>{
     }
 }
 }
-
+console.log(tipo)
 
 
     return(
