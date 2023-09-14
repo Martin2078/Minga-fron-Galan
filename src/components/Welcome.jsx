@@ -1,6 +1,5 @@
 import ButtonWelcome from './ButtonWelcome'
 import React from 'react'
-
 const Welcome = () => {
   return (
     <div className="w-full bg-cover align-middle flex justify-center items-center lg:bg-[url('../images/background.png')] lg:h-4/6 lg:bg-center min-[320px]:bg-[url('../images/imagen-mobile.png')] min-[320px]:h-screen">

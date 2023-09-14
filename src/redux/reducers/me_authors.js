@@ -3,11 +3,10 @@ import profile from '../actions/me_authors.js'
 
 const initialState = { user: {}, token:"" }
 
-const inputReducer = createReducer(
+const profile_Reducer = createReducer(
   initialState,
   (builder) =>{ return builder
       .addCase(profile,(state,action)=>{
-        console.log(action.payload);
         const newState={
           ...state,
           user: action.payload.findUser,
@@ -18,4 +17,4 @@ const inputReducer = createReducer(
   }
 )
 
-export default inputReducer
+export default profile_Reducer
