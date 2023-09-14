@@ -25,12 +25,11 @@ try {
   let respuesta= await axios.post('http://localhost:4000/auth/login',objeto)
   dispatch(profile(respuesta.data.response))
   navigate("/")
+  
 } catch (error) {
   errorMessage=error.response.data.message
-  errorData=null
-  console.log(errorData);
+  errorData=error.response.data 
   setShow(true)
-  
 }
 
 }
@@ -79,8 +78,7 @@ function ocultoVer() {
               <img src={icon} onClick={()=>{showOrNot();ocultoVer()}} className='text-[#4338CA] text-base cursor-pointer w-4 h-3 object-cover' alt="" />
               </div>
             </div>
-
-            {show ?(<Alert show={show} setShow={setShow} message={errorMessage} data={errorData} />):(null)}
+              {show ?(<Alert show={show} setShow={setShow} message={errorMessage} data={errorData} />):(null)}
             <button className='flex items-center justify-center w-5/6 h-11 rounded-xl px-2 py-2 bg-[#4338CA] text-white text-base' onClick={()=>sendData()}>Sign In</button>
             <button className='w-5/6 h-11 rounded-xl px-2 py-2 flex justify-center border border-[#999]'>
               <img src="../../public/images/Google.png" alt="" /><p className='text-[#666] pl-3'>Sign in with Google</p>

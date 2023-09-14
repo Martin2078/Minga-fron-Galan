@@ -3,7 +3,7 @@ const Alert = ({ show, setShow, message, data }) => {
       <div className='flex h-screen justify-center items-center absolute'>
         <div className='min-h-32 w-64 bg-white flex flex-col items-center justify-center rounded-lg'>
           {(message && message.length > 0) ? (
-            message.map((errorMessage, index) => (
+            message.map((errorMessage) => (
               <>
                   <h1
                     className='min-h-2/3 w-full text-center border-b-2 rounded-t-lg'

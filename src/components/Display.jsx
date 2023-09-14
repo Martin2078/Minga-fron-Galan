@@ -23,12 +23,6 @@ const Display = ({ open, setOpen }) => {
     }
   }
 
-  // async function logOut() {
-  //   console.log(email);
-  //   const respuesta = await axios.post('http://localhost:4000/auth/logout',email)
-  //   console.log(respuesta);
-
-  // }
   return (
     <>
       <div className='bg-gradient-to-r from-[#4338CA] to-[#5E52F3] lg:w-1/4 min-[320px]:w-full h-screen fixed top-0 z-10 flex flex-col p-5 shadow-[0_0_20px_-5px] shadow-[#4338CA] gap-5'>
@@ -37,7 +31,7 @@ const Display = ({ open, setOpen }) => {
         </button>
         <div className='text-white flex flex-col gap-5 p-5 border-b-2'>
           <Link to={"/"} className='flex justify-center py-2 px-3 rounded-full '>Home</Link>
-          <Link to={"/Mangas"} className='flex justify-center py-2 px-3 rounded-full'>Mangas</Link>
+          {token?(<Link to={"/Mangas"} className='flex justify-center py-2 px-3 rounded-full'>Mangas</Link>) : null}
         </div>
         <div className='text-white border-b-2 flex flex-col items-center px-3 pt-2 pb-4 gap-4'>
           {!token ? (<p className='font-bold'>Join Us</p>) : null}
