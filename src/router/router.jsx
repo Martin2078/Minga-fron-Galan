@@ -6,6 +6,7 @@ import Layout from '../layouts/Layout'
 import Page from '../pages/Page'
 import Profile from '../pages/Profile'
 import MangaDetail from '../components/MangaDetail'
+import MangaForm from '../pages/MangaForm'
 
 const router=createBrowserRouter([
     {
@@ -44,7 +45,11 @@ const router=createBrowserRouter([
             {
                 path:"/Me",
                 element: <Profile/>,
-            } 
+            },
+            {
+                path:"/manga-form",
+                element: <MangaForm />, 
+            }
         ],
     },
 ])
