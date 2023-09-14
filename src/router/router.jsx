@@ -8,6 +8,7 @@ import Profile from '../pages/Profile'
 import ChapterForm from '../pages/Chapter-form'
 import MangaDetail from '../components/MangaDetail'
 
+
 const router=createBrowserRouter([
     {
         path:"/",
