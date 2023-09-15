@@ -1,14 +1,4 @@
-import React from 'react';
-
-const Alert = ({ message, type }) => {
-    return (
-        <div className={`alert alert-${type}`}>
-            {message}
-        </div>
-    );
-}
-
-export default Alert;const Alert = ({ show, setShow, message, data }) => {
+const Alert = ({ show, setShow, message, data }) => {
     return (
       <div className='flex h-screen justify-center items-center absolute'>
         <div className='min-h-32 w-64 bg-white flex flex-col items-center justify-center rounded-lg'>
