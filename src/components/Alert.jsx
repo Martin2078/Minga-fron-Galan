@@ -1,3 +1,5 @@
+import React from 'react';
+
 const Alert = ({ show, setShow, message, data }) => {
     return (
       <div className='flex h-screen justify-center items-center absolute'>
