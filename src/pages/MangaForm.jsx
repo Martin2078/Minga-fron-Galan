@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
+import Alert from '../components/Alert'
 
 const MangaForm = () => {
     const [categories, setCategories] = useState([])
@@ -11,6 +12,9 @@ const MangaForm = () => {
         cover_photo: '',
         description: ''
     })
+    const [show, setShow] = useState(false);
+    const [alertType, setAlertType] = useState(null);
+    const [alertMessage, setAlertMessage] = useState("");
 
     const algoReducer = useSelector((store) => store.mangaReducer)
 
@@ -48,9 +52,26 @@ const MangaForm = () => {
                 cover_photo: '',
                 description: ''
             })
+            setAlertType("success");
+            setAlertMessage("Your manga was successfully created");
+            setShow(true);
             navigate('/')
         } catch (error) {
-            console.log('Error creating manga:', error)
+            if (error.response) {
+                // La respuesta del servidor contiene detalles del error
+                console.error('Error de respuesta:', error.response.data);
+              } else if (error.request) {
+                // La solicitud se hizo pero no se recibió una respuesta
+                console.error('Error de solicitud:', error.request);
+              } else {
+                // Ocurrió un error durante la configuración de la solicitud
+                console.error('Error de configuración de solicitud:', error.message); 
+                setShow(false);
+              }
+               // Mostrar alerta de error
+               setAlertType("error");
+               setAlertMessage("Error creating manga, please try again with the required info");
+               setShow(true);
         }
     }
 
@@ -112,7 +133,7 @@ const MangaForm = () => {
                 Send
             </button>
         </form>
-        
+        {show && <Alert message={alertMessage} type={alertType} />}
     </div>
   )
 }

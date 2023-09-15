@@ -45,6 +45,10 @@ const router=createBrowserRouter([
                 element: <Page/>,
             },
             {
+                path:"/mangas/:id",
+                element: <Mangas/>,
+            }, 
+            {
                 path:"/Me",
                 element: <Profile/>,
             },

@@ -12,7 +12,7 @@ const NavBar = () => {
         <button onClick={()=>setOpen(!open)}><img className='min-[320px]:h-12 lg:h-1/6' src={menu} alt="menu" /></button>
         <Button to="/"><img className='min-[320px]:h-8 lg:h-1/6' src={logo} alt="logo" /></Button>
       </nav>
-      {open && <Display open={open} setOpen={setOpen} author={true}/> }
+      {open && <Display open={open} setOpen={setOpen} author={false}/> }
     </>
 
 
