@@ -48,7 +48,14 @@ const router=createBrowserRouter([
             },
             {
                 path:"/manga-form",
-                element: <MangaForm />, 
+                loader: async () => {
+                    const userRole = getUserRole()
+                    if (userRole === 0) {
+                        return <MangaForm />;
+                    } else {
+                        
+                    }
+                } 
             }
         ],
     },
