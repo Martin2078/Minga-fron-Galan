@@ -5,21 +5,29 @@ import MangaInfo from './MangaInfo'
 import MangaButton from './MangaButton'
 import MangaContent from './MangaContent'
 import MangaRating from './MangasRating'
+import { useSelector, useStore, useDispatch } from 'react-redux'
+import { saveManga } from '../../redux/actions/mangaAction'
+
 
 let MangaDetail = () => {
   let { id } = useParams()
-  let [ manga, setManga ] = useState(null)
+  /* let [ manga, setManga ] = useState(null) */
   let [ currentPage, setCurrentPage ] = useState(1)
   let [ chapters, setChapters ] = useState([])
   let [ hasPrev, setHasPrev] = useState(false)
   let [ hasNext, setHasNext ] = useState(false)
   let [ showChapters, setShowChapters ] = useState(false)
 
+  const mangaReducer = useSelector((store) => store.mangaReducer)
+  const dispatch = useDispatch()
+  const manga = {...useSelector((state) => state.mangaReducer.manga)}
+
   useEffect(() => {
     axios.get(`http://localhost:4000/mangas/${id}`)
       .then((response) => {
         console.log(response.data.response)
-        setManga(response.data.response)
+        dispatch(saveManga(response.data.response))
+        /* setManga(response.data.response) */
       })
       .catch((err) => {
         console.log('Error al obtener los detalles del manga: ', err)
@@ -37,7 +45,7 @@ let MangaDetail = () => {
         console.log('Error al obtener los capítulos: ', err)
       })
   }, [id, currentPage, showChapters])
-
+  
   return (
     <div>
       <MangaInfo title={manga?.title} cover_photo={manga?.cover_photo} categories={manga?.category_id?.name} />

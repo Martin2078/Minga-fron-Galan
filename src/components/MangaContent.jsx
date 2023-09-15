@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 
 const MangaContent = (props) => {
   const { manga, chapters, hasPrev, hasNext, showChapters, onPageChange } = props
-  console.log(chapters)
   const [currentPage, setCurrentPage] = useState(1)
 
   const handlePrevPage = () => {
