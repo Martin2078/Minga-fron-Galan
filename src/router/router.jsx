@@ -6,8 +6,7 @@ import Layout from '../layouts/Layout'
 import Page from '../pages/Page'
 import Profile from '../pages/Profile'
 import MangaDetail from '../components/MangaDetail'
-import SignUp from '../pages/SignUp'
-import NotAllow from '../components/NotAllow'
+
 const router=createBrowserRouter([
     {
         path:"/",
@@ -45,14 +44,6 @@ const router=createBrowserRouter([
             {
                 path:"/Me",
                 element: <Profile/>,
-            }, 
-            {
-                path:"/singUp",
-                element: <SignUp/>,
-            },
-            {
-                path:"/notAllow",
-                element: <NotAllow/>,
             } 
         ],
     },

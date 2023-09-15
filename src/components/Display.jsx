@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import cruz from '/images/cruz.png'
 import {Link} from 'react-router-dom'
 
 const Display = ({open,setOpen}) => {
-  const [isLogged, setIsLogged] = useState(false)
   return (
     <>
     <div className='bg-gradient-to-r from-[#4338CA] to-[#5E52F3] lg:w-1/4 min-[320px]:w-full h-screen fixed top-0 z-10 flex flex-col p-5 shadow-[0_0_20px_-5px] shadow-[#4338CA] gap-5'>
@@ -18,15 +17,9 @@ const Display = ({open,setOpen}) => {
         <p className='font-bold'>Join Us</p>
         <button></button>
         <div className='flex gap-6'>
-        {
-          isLogged ? <Link to={"/Me"} className='py-2 px-3 rounded-full '>Profile</Link>:
-          <>
-        <Link to={"/singUp"} className=' py-2 px-3 rounded-full'>Sign Up</Link>
         <Link className=' py-2 px-4 rounded-full '>Log In</Link>
-        </>
-        }
-        
-        
+        <Link className=' py-2 px-3 rounded-full'>Sign Up</Link>
+        <Link to={"/Me"} className='py-2 px-3 rounded-full '>Profile</Link>
         </div>
       </div>
     </div>
