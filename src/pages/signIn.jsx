@@ -1,45 +1,58 @@
 import axios from 'axios'
 import React, { useRef, useState } from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import {useDispatch} from 'react-redux'
 import profile from '../redux/actions/me_authors.js'
-
+import Alert from '../components/Alert.jsx'
 function signIn() {
 
 const mail = useRef()
 const contrasenia = useRef()
 const [icon,setIcon]=useState("../../public/images/oculto.png")
 const [value,setValue]=useState("")
-const [show,setShow]=useState("password")
+const [mostrar,setMostrar]=useState("password")
+const [show,setShow]=useState(false)
 const dispatch = useDispatch()
-
+const navigate=useNavigate()
+let errorData
+let errorMessage
 async function sendData() {
 const objeto={
   email: mail.current.value,
   password: contrasenia.current.value
 }
-let respuesta= await axios.post('http://localhost:4000/auth/login',objeto)
-dispatch(profile(respuesta.data.response))
+try {
+  let respuesta= await axios.post('http://localhost:4000/auth/login',objeto)
+  dispatch(profile(respuesta.data.response))
+  navigate("/")
+  
+} catch (error) {
+  errorMessage=error.response.data.message
+  errorData=error.response.data 
+  setShow(true)
+}
+
 }
 
 function showOrNot() {
-  if (show==="password") {
-    setShow("text")
-    return show
-  }else if(show==="text"){
-    setShow("password")
-    return show
+  if (mostrar==="password") {
+    setMostrar("text")
+    return mostrar
+  }else if(mostrar==="text"){
+    setMostrar("password")
+    return mostrar
   }
 }
 function ocultoVer() {
-  if (show==="password") {
+  if (mostrar==="password") {
     setIcon("../../public/images/ver.png")
     return icon
-  }else if(show==="text"){
+  }else if(mostrar==="text"){
     setIcon("../../public/images/oculto.png")
     return icon
   }
 }
+
   return (
     <div className='w-full h-full flex'>
       <img className='w-3/6 h-screen lg:block min-[320px]:hidden' src="../../public/images/backgroudn-signIn.png" alt="" />
@@ -61,13 +74,12 @@ function ocultoVer() {
             <div className='w-5/6'>
               <p className='text-[#4338CA] text-xs ml-4 translate-y-2 inline-block bg-white'>Password</p>
               <div className='flex justify-between pr-2 items-center border border-[#999] rounded-xl bg-white'>
-              <input className='w-full h-10 rounded-xl px-4 py-1 focus:outline-none ' onInput={(e)=>{setValue(e.target.value)}} ref={contrasenia} type={show} value={value} />
+              <input className='w-full h-10 rounded-xl px-4 py-1 focus:outline-none ' onInput={(e)=>{setValue(e.target.value)}} ref={contrasenia} type={mostrar} value={value} />
               <img src={icon} onClick={()=>{showOrNot();ocultoVer()}} className='text-[#4338CA] text-base cursor-pointer w-4 h-3 object-cover' alt="" />
               </div>
             </div>
-
-
-            <button className='w-5/6 h-11 rounded-xl px-2 py-2 bg-[#4338CA] text-white text-sm' onClick={()=>sendData()} >Sign In</button>
+              {show ?(<Alert show={show} setShow={setShow} message={errorMessage} data={errorData} />):(null)}
+            <button className='flex items-center justify-center w-5/6 h-11 rounded-xl px-2 py-2 bg-[#4338CA] text-white text-base' onClick={()=>sendData()}>Sign In</button>
             <button className='w-5/6 h-11 rounded-xl px-2 py-2 flex justify-center border border-[#999]'>
               <img src="../../public/images/Google.png" alt="" /><p className='text-[#666] pl-3'>Sign in with Google</p>
             </button>

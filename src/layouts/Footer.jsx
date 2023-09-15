@@ -2,8 +2,11 @@ import imagenFooter from '/images/footer.png'
 import logoFooter from '/images/logo-footer.png'
 import logoFooter2 from '/images/logo-footer2.png'
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
 const footer = () => {
+  
+  const { user, token } = useSelector((store) => store.profile)
   return (
     <footer className='h-auto min-[320px]:top-full '>
           <img className='w-full h-72 object-center lg:block min-[320px]:hidden' src={imagenFooter} alt="" />
@@ -12,7 +15,7 @@ const footer = () => {
             <div className='lg:w-10/12 h-fit flex lg:justify-between lg:items-end lg:flex-row min-[320px]:py-5 min-[320px]:px-12 min-[320px]:flex-col min-[320px]:w-full min-[320px]:justify-center min-[320px]:items-center min-[320px]:gap-6'>
             <div className='flex font-bold lg:gap-32 lg:flex-row lg:text-min-[320px] lg:text-black min-[320px]:flex-col min-[320px]:gap-2 min-[320px]:text-xl min-[320px]:text-center min-[320px]:text-white'>
               <Link to="/">Home</Link>
-              <Link to="/Mangas">Mangas</Link>
+              {token?(<Link to="/Mangas">Mangas</Link>):(<Link to="/signin">Mangas</Link>)}
             </div>
 
             <div className='flex'>
