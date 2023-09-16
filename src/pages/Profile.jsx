@@ -1,9 +1,9 @@
 import React from 'react'
-import User from './User'
 import axios from 'axios'
 import { useState } from 'react'
 import Author from './Author'
 import { useEffect } from 'react'
+import User from './User'
 
 const Profile = () => {
 

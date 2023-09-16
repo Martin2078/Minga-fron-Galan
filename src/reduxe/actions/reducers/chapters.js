@@ -1,18 +1,19 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { chapter } from "../chapters"; 
+import  chapter  from "../chapters"; 
 
 const initialState = {
-    check: [],
-    text: ""
+    number: null,
+    title: ""
 }
 
-const chapterReducer = chapterReducer (initialState, (builder) => builder
+const chapterReducer = createReducer (initialState, (builder) => builder
     .addCase(chapter, (state, action) => {
-        console.log(action)
-        console.log (action.payload)
+       
 
         const nuevoEstado = {
             ...state,
+            number: action.payload.number,
+            title: action.payload.title
         }
 
        
@@ -21,6 +22,6 @@ const chapterReducer = chapterReducer (initialState, (builder) => builder
     })
     
 )
-export default mangasReducer;
-mangaAction
+export default chapterReducer;
+
 

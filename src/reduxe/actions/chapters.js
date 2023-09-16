@@ -1,7 +1,12 @@
 import { createAction } from "@reduxjs/toolkit";
 
+const chapter = createAction("chapters", ({number, title}) => {
+    return {
+        payload: {
+            number,
+            title,
+        },
+    }
+})
 
-export const setChapterData = (number, title) => ({
-    type: 'SET_CHAPTER_DATA',
-    payload: { number, title },
-});
+export default chapter ;

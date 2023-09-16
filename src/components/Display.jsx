@@ -21,7 +21,7 @@ const Display = ({open,setOpen}) => {
         {
           isLogged ? <Link to={"/Me"} className='py-2 px-3 rounded-full '>Profile</Link>:
           <>
-        <Link to={"/singUp"} className=' py-2 px-3 rounded-full'>Sign Up</Link>
+        <Link to={"/singUp"} className=' py-2 px-3 rounded-full'>Register</Link>
         <Link className=' py-2 px-4 rounded-full '>Log In</Link>
         </>
         }
