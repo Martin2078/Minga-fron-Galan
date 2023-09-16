@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import cruz from '/images/cruz.png'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
