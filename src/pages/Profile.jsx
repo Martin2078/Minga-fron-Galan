@@ -1,9 +1,9 @@
 import React from 'react'
-import User from './User'
 import axios from 'axios'
 import { useState } from 'react'
 import Author from './Author'
 import { useEffect } from 'react'
+import NotAllow from '../components/NotAllow.jsx'
 
 const Profile = () => {
 
@@ -50,9 +50,7 @@ let getUser = () => {
     {hasAuthor? <Author 
     user = {usuario}
     
-    /> : <User
-    user = {usuario }
-    />}
+    /> : <NotAllow />}
 
         
       

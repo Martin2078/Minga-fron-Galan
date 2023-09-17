@@ -1,7 +1,8 @@
 import { createReducer } from "@reduxjs/toolkit"
 import profile from '../actions/me_authors.js'
+import logout from '../actions/loggoutAction.js'
 
-const initialState = { user: {}, token:"" }
+const initialState = { user: {role:-1}, token:"" }
 
 const profile_Reducer = createReducer(
   initialState,
@@ -13,6 +14,9 @@ const profile_Reducer = createReducer(
           token: action.payload.token
         }
         return newState
+      })
+      .addCase(logout, (state,action)=>{
+        return initialState
       })
   }
 )

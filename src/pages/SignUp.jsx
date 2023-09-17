@@ -33,7 +33,7 @@ let navigate = useNavigate()
         
 
         const create = async (data) =>{
-           await axios.post("http://localhost:4000/users/signup",data)
+           await axios.post("http://localhost:4000/auth/signup",data)
             .then(res =>{ 
                 console.log(res.data.message)
                 if(res.data.success){

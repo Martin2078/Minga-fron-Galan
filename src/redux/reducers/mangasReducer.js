@@ -26,4 +26,4 @@ const mangasReducer = createReducer(initialState, (builder) => builder
     })
     
 )
-export default mangasReducer;
+export  {mangasReducer};

@@ -1,12 +1,14 @@
-import { configureStore } from '@reduxjs/toolkit'
-import me_authorsReducer from './reducers/me_authors.js'
+import { configureStore } from "@reduxjs/toolkit";
+import { mangaReducer } from "./reducers/mangaReducer.js";
+import profile_Reducer from './reducers/me_authors.js'
 import mangas_news from './reducers/mangas_news.js'
-import mangasReducer from './reducers/mangasReducer.js'
+import { mangasReducer } from './reducers/mangasReducer.js'
 
 export const store = configureStore({
-    reducer : {
+    reducer: {
+        mangaReducer,
         mangas : mangasReducer,
-        profile: me_authorsReducer,
+        profile: profile_Reducer,
         mangas_news
     }
 })

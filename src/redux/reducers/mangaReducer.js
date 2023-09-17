@@ -8,8 +8,6 @@ const initialState = {
 const mangaReducer = createReducer(initialState, (builder) => 
     builder
         .addCase(saveManga, (state, action) => {
-            console.log(action)
-            console.log(action.payload)
             const nuevoEstado = {
                 ...state,
                 manga: { ...action.payload}
