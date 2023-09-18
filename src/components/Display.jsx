@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import cruz from '/images/cruz.png'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
@@ -7,10 +7,12 @@ import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import profile from '../redux/actions/me_authors'
 import { useNavigate } from 'react-router-dom'
+import logout from '../redux/actions/loggoutAction'
+
 const Display = ({ open, setOpen }) => {
 
   const { user, token } = useSelector((store) => store.profile)
-  const author=false
+  let author=false
   if(user.role>0){
     author=true }
   const dispatch=useDispatch()
@@ -18,11 +20,11 @@ const Display = ({ open, setOpen }) => {
   const signout = async () => {
     let headers = { headers: { 'Authorization': `Bearer ${token}` } }
     try {
-      await axios.post('http://localhost:4000/auth/logout', null, headers)
-      dispatch(profile({}))
+      await axios.post('http://localhost:4000/auth/signout', null, headers)
+      dispatch(logout())
       navigate("/")
     } catch (error) {
-      alert('error!')
+      alert('Error occurred during logout!')
     }
   }
   return (
@@ -46,7 +48,7 @@ const Display = ({ open, setOpen }) => {
             <Link to={"/Me"}><img src={user.photo} className='w-10 rounded-full' alt="" /></Link>
             <p className='text-base'>{user.email}</p>
           </div>
-            <ButtonNav to="" title="Log out" function={signout} />
+            <ButtonNav to="/" title="Log out" function={signout} />
           </>)
             : (<div className='flex gap-10 my-2'>
               <ButtonNav to="/signIn" title="Login" />

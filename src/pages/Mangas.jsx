@@ -22,7 +22,6 @@ const Mangas = () => {
     try {
       let { data } = await axios(`http://localhost:4000/mangas?page=${page}&title=${text}&category=${check.join(",")}`)
       setMangas(data.response)
-      console.log(data)
       setMaxPages(data.pages.maxPages)
       setNext(data.pages.next)
       setPrev(data.pages.prev)
@@ -128,7 +127,7 @@ const Mangas = () => {
 
           <div className='flex flex-wrap gap-8 justify-center h-fit lg:w-5/6 lg:flex-row min-[320px]:flex-col min-[320px]:items-center  min-[320px]:w-full'>
             {(mangas?.length > 0) ? mangas.map((manga) => (
-              <Link to={`/manga/${manga._id}`} key={manga._id} className='flex items-center lg:w-2/6 min-[320px]:w-5/6 justify-between rounded-xl bg-white shadow-lg lg:hover:scale-110'>
+              <Link to={`/mangas/${manga._id}`} key={manga._id} className='flex items-center lg:w-2/6 min-[320px]:w-5/6 justify-between rounded-xl bg-white shadow-lg lg:hover:scale-110'>
                 <div className='px-[3px] lg:py-14 min-[320px]:py-10 mr-4 bg-[#8883F0]'></div>
                 <div className='py-5 px-0 flex flex-col items-start w-7/12 h-full gap-6'>
 
@@ -152,10 +151,10 @@ const Mangas = () => {
           </div>
 
         <div className='flex items-center gap-2 mt-10'>
-            <button className={`${prev ? "" : "hidden"}`} onClick={() => setPage(page - 1)}><img className='rotate-180' src="../../public/images/pagination-arrow.png" alt="" /></button>
+            <button className={`${prev ? "" : "hidden"}`} onClick={() => setPage(page - 1)}><img className='rotate-180' src="../../images/pagination-arrow.png" alt="" /></button>
             {(maxPages==0)?(<button className="text-blue-700 font-bold" onClick={() => setPage(1)}>1...</button>) 
             : pagination(1, maxPages)}
-            <button className={`${next ? "" : "hidden"}`} onClick={() => setPage(page + 1)} ><img src="../../public/images/pagination-arrow.png" alt="" /></button>
+            <button className={`${next ? "" : "hidden"}`} onClick={() => setPage(page + 1)} ><img src="../../images/pagination-arrow.png" alt="" /></button>
           </div>
 
         </div>

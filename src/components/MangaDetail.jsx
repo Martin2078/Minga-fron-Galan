@@ -6,7 +6,7 @@ import MangaButton from './MangaButton'
 import MangaContent from './MangaContent'
 import MangaRating from './MangasRating'
 import { useSelector, useStore, useDispatch } from 'react-redux'
-import { saveManga } from '../../redux/actions/mangaAction'
+import { saveManga } from '../redux/actions/mangaAction'
 
 
 let MangaDetail = () => {
@@ -25,7 +25,6 @@ let MangaDetail = () => {
   useEffect(() => {
     axios.get(`http://localhost:4000/mangas/${id}`)
       .then((response) => {
-        console.log(response.data.response)
         dispatch(saveManga(response.data.response))
         /* setManga(response.data.response) */
       })

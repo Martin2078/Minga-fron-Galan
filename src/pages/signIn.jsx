@@ -8,7 +8,7 @@ function signIn() {
 
 const mail = useRef()
 const contrasenia = useRef()
-const [icon,setIcon]=useState("../../public/images/oculto.png")
+const [icon,setIcon]=useState("../../images/oculto.png")
 const [value,setValue]=useState("")
 const [mostrar,setMostrar]=useState("password")
 const [show,setShow]=useState(false)
@@ -22,7 +22,7 @@ const objeto={
   password: contrasenia.current.value
 }
 try {
-  let respuesta= await axios.post('http://localhost:4000/auth/login',objeto)
+  let respuesta= await axios.post('http://localhost:4000/auth/signin',objeto)
   dispatch(profile(respuesta.data.response))
   navigate("/")
   
@@ -45,21 +45,21 @@ function showOrNot() {
 }
 function ocultoVer() {
   if (mostrar==="password") {
-    setIcon("../../public/images/ver.png")
+    setIcon("../../images/ver.png")
     return icon
   }else if(mostrar==="text"){
-    setIcon("../../public/images/oculto.png")
+    setIcon("../../images/oculto.png")
     return icon
   }
 }
 
   return (
     <div className='w-full h-full flex'>
-      <img className='w-3/6 h-screen lg:block min-[320px]:hidden' src="../../public/images/backgroudn-signIn.png" alt="" />
+      <img className='w-3/6 h-screen lg:block min-[320px]:hidden' src="../../images/backgroudn-signIn.png" alt="" />
       <div className='flex justify-center items-center bg-white lg:w-3/6 min-[320px]:w-full h-screen'>
         <div className='lg:w-4/6 min-[320px]:w-full h-4/6 flex flex-col gap-6'>
           <div className='flex flex-col items-center gap-2'>
-            <img src="../../public/images/logo-junto.svg" alt="" />
+            <img src="../../images/logo-junto.svg" alt="" />
             <h1 className='text-4xl font-semibold flex'>Welcome <p className=' ml-3 text-[#4338CA]'>back</p>!</h1>
             <p className='text-center lg:w-9/12 min-[320px]:w-10/12 text-xs'>Discover manga, manhua and manhwa, track your progress, have fun, read manga. </p>
           </div>
@@ -81,7 +81,7 @@ function ocultoVer() {
               {show ?(<Alert show={show} setShow={setShow} message={errorMessage} data={errorData} />):(null)}
             <button className='flex items-center justify-center w-5/6 h-11 rounded-xl px-2 py-2 bg-[#4338CA] text-white text-base' onClick={()=>sendData()}>Sign In</button>
             <button className='w-5/6 h-11 rounded-xl px-2 py-2 flex justify-center border border-[#999]'>
-              <img src="../../public/images/Google.png" alt="" /><p className='text-[#666] pl-3'>Sign in with Google</p>
+              <img src="../../images/Google.png" alt="" /><p className='text-[#666] pl-3'>Sign in with Google</p>
             </button>
             <p>you don't have an account yet? <Link to={""} className='text-[#4338CA] font-semibold'>Sign Up</Link>
             </p>

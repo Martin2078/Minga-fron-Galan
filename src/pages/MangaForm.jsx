@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { useSelector } from 'react-redux'
 import Alert from '../components/Alert'
+import { useSelector } from 'react-redux'
 
 const MangaForm = () => {
     const [categories, setCategories] = useState([])
@@ -13,11 +13,9 @@ const MangaForm = () => {
         description: ''
     })
     const [show, setShow] = useState(false);
-    const [alertType, setAlertType] = useState(null);
-    const [alertMessage, setAlertMessage] = useState("");
-
-    const algoReducer = useSelector((store) => store.mangaReducer)
-
+    const [message, setMessage] = useState([]);
+    const [dataResponse, setDataResponse] = useState(null);
+    const token = useSelector((state) => state.profile.token)
     async function getCategories() {
         try {
             let { data } = await axios.get('http://localhost:4000/categories')
@@ -38,7 +36,6 @@ const MangaForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImlnbmFAbWguY29tLmFyIiwiaWF0IjoxNjk0NjM4MjM1LCJleHAiOjE2OTQ3MjQ2MzV9.ovoGmE11HSW5vnjaxCeQEAeAYO7hf8mZ66tb4lqhDNo"
         try {
             const response = await axios.post('http://localhost:4000/mangas', {
                 ...formData
@@ -52,39 +49,33 @@ const MangaForm = () => {
                 cover_photo: '',
                 description: ''
             })
-            setAlertType("success");
-            setAlertMessage("Your manga was successfully created");
-            setShow(true);
-            navigate('/')
+            setMessage(response.data.message)
+            setDataResponse(response.data.message);
+            /* navigate('/') */
         } catch (error) {
+            console.log(error)
             if (error.response) {
-                // La respuesta del servidor contiene detalles del error
                 console.error('Error de respuesta:', error.response.data);
               } else if (error.request) {
-                // La solicitud se hizo pero no se recibió una respuesta
                 console.error('Error de solicitud:', error.request);
               } else {
-                // Ocurrió un error durante la configuración de la solicitud
                 console.error('Error de configuración de solicitud:', error.message); 
-                setShow(false);
               }
-               // Mostrar alerta de error
-               setAlertType("error");
-               setAlertMessage("Error creating manga, please try again with the required info");
-               setShow(true);
+               setMessage([error.response.data.message]);
+               setDataResponse(null)
+
         }
     }
 
     useEffect(() => {
-
-    /*     const token = localStorage.getItem('token')
-        if (token) {
-            const decodedToken = 
-        }
- */
         getCategories()
-
     },[])
+
+    useEffect(() => {
+        if (dataResponse || message.length > 0) {
+          setShow(true);
+        }
+      }, [dataResponse, message]);
 
   return (
     <div className='h-screen bg-slate-100 flex flex-col justify-center items-center'>
@@ -133,7 +124,7 @@ const MangaForm = () => {
                 Send
             </button>
         </form>
-        {show && <Alert message={alertMessage} type={alertType} />}
+        {show && <Alert show={show} message={message} data={dataResponse} setShow={setShow} />}
     </div>
   )
 }

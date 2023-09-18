@@ -7,6 +7,13 @@ import { Link } from "react-router-dom";
 const footer = () => {
   
   const { user, token } = useSelector((store) => store.profile)
+  if (!user) {
+    return (
+      <footer className='h-auto min-[320px]:top:full'>
+        <img className='w-full h-72 object-center lg:block min-[320px]:hidden' src={imagenFooter} alt="" />
+      </footer>
+    )
+  }
   return (
     <footer className='h-auto min-[320px]:top-full '>
           <img className='w-full h-72 object-center lg:block min-[320px]:hidden' src={imagenFooter} alt="" />

@@ -1,7 +1,6 @@
 import React from 'react'
 
 const MangaInfo = (props) => {
-    console.log(props)
     
     return (
         <>
