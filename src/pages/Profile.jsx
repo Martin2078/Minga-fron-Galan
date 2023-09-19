@@ -4,12 +4,13 @@ import { useState } from 'react'
 import Author from './Author'
 import { useEffect } from 'react'
 import NotAllow from '../components/NotAllow.jsx'
-
+import { useSelector } from 'react-redux'
 const Profile = () => {
 
 const[hasAuthor, setHasAuthor] = useState(false)
 const [usuario, setUsuario] = useState({})
-
+const { user, token } = useSelector((store) => store.profile)
+const userId=user._id
 useEffect(()=>{
  
   getUser()
@@ -25,7 +26,8 @@ let handleHasAuthor=(data)=>{
   }
 }
 let getUser = () => {
-  axios("http://localhost:4000/authors/64f1645c46d9719d0b8048e3")
+  if(user._id){
+  axios(`http://localhost:4000/authors/${userId}`)
    .then(res=> {
     
     let data = res.data.response.profile
@@ -36,7 +38,7 @@ let getUser = () => {
     handleHasAuthor(data)
    }
     )
-   .catch(error=>console.log(error)) 
+   .catch(error=>console.log(error)) }
 }
 
 
@@ -50,7 +52,7 @@ let getUser = () => {
     {hasAuthor? <Author 
     user = {usuario}
     
-    /> : <NotAllow />}
+    /> : <NotAllow props={"Debes iniciar sesion antes de ingresar aqui"} />}
 
         
       

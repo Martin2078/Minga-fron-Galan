@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Alert from '../components/Alert'
 import { useSelector } from 'react-redux'
+import NotAllow from '../components/NotAllow'
 
 const MangaForm = () => {
     const [categories, setCategories] = useState([])
@@ -78,54 +79,57 @@ const MangaForm = () => {
       }, [dataResponse, message]);
 
   return (
-    <div className='h-screen bg-slate-100 flex flex-col justify-center items-center'>
-        <form ref={referencia} onSubmit={handleSubmit} className='flex flex-col h-2/3 w-2/3 items-center'>
-            <label htmlFor="category-select" className='text-2xl pb-5'>New Manga</label>
-            <input
-                type="text"
-                name="title"
-                value={formData.title}
-                onChange={handleInputChange}
-                className='border-b-2 border-neutral-400 bg-slate-100 text-xs pt-5 w-full md:w-1/2'
-                placeholder='Insert title'
-            />
-            <select
-                name="category_id"
-                value={formData.category_id}
-                onChange={handleInputChange}
-                id="category-select"
-                className='border-b-2 border-neutral-400 bg-slate-100 text-xs pt-5 w-full md:w-1/2'
-            >
-            <option value="">Insert Category</option>
-            {categories?.map((category) => (
-                <option key={category._id} value={category.name}>{category?.name}</option>
-                ))}
-            </select>
-            <input
-                type="text"
-                name="cover_photo"
-                value={formData.cover_photo}
-                onChange={handleInputChange}
-                className='border-b-2 border-neutral-400 bg-slate-100 text-xs pt-5 w-full md:w-1/2'
-                placeholder='Insert cover photo'
-            />
-            <input
-                type="text"
-                name="description"
-                value={formData.description}
-                onChange={handleInputChange}
-                className='border-b-2 border-neutral-400 bg-slate-100 text-xs pt-5 w-full md:w-1/2'
-                placeholder='Insert description'
-            />
-            <button
-                type="submit"
-                className='bg-indigo-700 text-white font-semibold py-2 px-5 mt-20 rounded-full w-full md:w-1/2'
-            >
-                Send
-            </button>
-        </form>
-        {show && <Alert show={show} message={message} data={dataResponse} setShow={setShow} />}
-    </div>
+    <>
+    {token ? (<div className='h-screen bg-slate-100 flex flex-col justify-center items-center'>
+    <form ref={referencia} onSubmit={handleSubmit} className='flex flex-col h-2/3 w-2/3 items-center'>
+        <label htmlFor="category-select" className='text-2xl pb-5'>New Manga</label>
+        <input
+            type="text"
+            name="title"
+            value={formData.title}
+            onChange={handleInputChange}
+            className='border-b-2 border-neutral-400 bg-slate-100 text-xs pt-5 w-full md:w-1/2'
+            placeholder='Insert title'
+        />
+        <select
+            name="category_id"
+            value={formData.category_id}
+            onChange={handleInputChange}
+            id="category-select"
+            className='border-b-2 border-neutral-400 bg-slate-100 text-xs pt-5 w-full md:w-1/2'
+        >
+        <option value="">Insert Category</option>
+        {categories?.map((category) => (
+            <option key={category._id} value={category.name}>{category?.name}</option>
+            ))}
+        </select>
+        <input
+            type="text"
+            name="cover_photo"
+            value={formData.cover_photo}
+            onChange={handleInputChange}
+            className='border-b-2 border-neutral-400 bg-slate-100 text-xs pt-5 w-full md:w-1/2'
+            placeholder='Insert cover photo'
+        />
+        <input
+            type="text"
+            name="description"
+            value={formData.description}
+            onChange={handleInputChange}
+            className='border-b-2 border-neutral-400 bg-slate-100 text-xs pt-5 w-full md:w-1/2'
+            placeholder='Insert description'
+        />
+        <button
+            type="submit"
+            className='bg-indigo-700 text-white font-semibold py-2 px-5 mt-20 rounded-full w-full md:w-1/2'
+        >
+            Send
+        </button>
+    </form>
+    {show && <Alert show={show} message={message} data={dataResponse} setShow={setShow} />}
+</div>) : (<NotAllow props={"Debes iniciar sesion antes de ingresar aqui"}/>)}
+</>
+    
   )
 }
 
