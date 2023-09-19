@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState , useEffect } from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import {useDispatch} from 'react-redux'
 import profile from '../redux/actions/me_authors.js'
@@ -14,8 +14,8 @@ const [mostrar,setMostrar]=useState("password")
 const [show,setShow]=useState(false)
 const dispatch = useDispatch()
 const navigate=useNavigate()
-let errorData
-let errorMessage
+const [message, setMessage] = useState([]);
+const [dataResponse, setDataResponse] = useState(null);
 async function sendData() {
 const objeto={
   email: mail.current.value,
@@ -25,11 +25,10 @@ try {
   let respuesta= await axios.post('http://localhost:4000/auth/signin',objeto)
   dispatch(profile(respuesta.data.response))
   navigate("/")
-  
 } catch (error) {
-  errorMessage=error.response.data.message
-  errorData=error.response.data 
-  setShow(true)
+  console.log(error);
+  setMessage(error.response.data.message)
+  setDataResponse(error.response.data)
 }
 
 }
@@ -52,8 +51,12 @@ function ocultoVer() {
     return icon
   }
 }
-
-  return (
+useEffect(() => {
+  if (dataResponse || message.length > 0) {
+    setShow(true);
+  }
+}, [dataResponse, message]);
+  return (     
     <div className='w-full h-full flex'>
       <img className='w-3/6 h-screen lg:block min-[320px]:hidden' src="../../images/backgroudn-signIn.png" alt="" />
       <div className='flex justify-center items-center bg-white lg:w-3/6 min-[320px]:w-full h-screen'>
@@ -78,12 +81,12 @@ function ocultoVer() {
               <img src={icon} onClick={()=>{showOrNot();ocultoVer()}} className='text-[#4338CA] text-base cursor-pointer w-4 h-3 object-cover' alt="" />
               </div>
             </div>
-              {show ?(<Alert show={show} setShow={setShow} message={errorMessage} data={errorData} />):(null)}
+            {show ?(<Alert show={show} setShow={setShow} message={message}/>):(null)}
             <button className='flex items-center justify-center w-5/6 h-11 rounded-xl px-2 py-2 bg-[#4338CA] text-white text-base' onClick={()=>sendData()}>Sign In</button>
             <button className='w-5/6 h-11 rounded-xl px-2 py-2 flex justify-center border border-[#999]'>
               <img src="../../images/Google.png" alt="" /><p className='text-[#666] pl-3'>Sign in with Google</p>
             </button>
-            <p>you don't have an account yet? <Link to={""} className='text-[#4338CA] font-semibold'>Sign Up</Link>
+            <p>you don't have an account yet? <Link to={"/signUp"} className='text-[#4338CA] font-semibold'>Sign Up</Link>
             </p>
             <p>Go back to <Link to={"/"} className='text-[#4338CA] font-semibold'>home Page</Link>
             </p>
