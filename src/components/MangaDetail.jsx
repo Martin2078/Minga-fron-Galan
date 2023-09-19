@@ -7,6 +7,7 @@ import MangaContent from './MangaContent'
 import MangaRating from './MangasRating'
 import { useSelector, useStore, useDispatch } from 'react-redux'
 import { saveManga } from '../redux/actions/mangaAction'
+import NotAllow from './NotAllow'
 
 
 let MangaDetail = () => {
@@ -17,7 +18,8 @@ let MangaDetail = () => {
   let [ hasPrev, setHasPrev] = useState(false)
   let [ hasNext, setHasNext ] = useState(false)
   let [ showChapters, setShowChapters ] = useState(false)
-
+  
+  const token = useSelector((store)=>store.profile.token)
   const mangaReducer = useSelector((store) => store.mangaReducer)
   const dispatch = useDispatch()
   const manga = {...useSelector((state) => state.mangaReducer.manga)}
@@ -45,8 +47,8 @@ let MangaDetail = () => {
       })
   }, [id, currentPage, showChapters])
   
-  return (
-    <div>
+  return (<>
+    {token?(<div>
       <MangaInfo title={manga?.title} cover_photo={manga?.cover_photo} categories={manga?.category_id?.name} />
       <MangaRating />
       <MangaButton {...{ showChapters, setShowChapters }} />
@@ -60,7 +62,8 @@ let MangaDetail = () => {
           onPageChange: setCurrentPage
         }}
       />
-    </div>
+    </div>):(<NotAllow props={"Debes iniciar sesion antes de ingresar aqui"}/>)}
+    </> 
   )
 }
 

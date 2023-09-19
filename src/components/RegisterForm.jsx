@@ -48,7 +48,7 @@ const RegisterForm =(props) =>{
      <input onClick={(e)=>handleCreate(e, data)} className="h-8 bg-blue-700 rounded-xl mt-3" type="submit" value="SingUp"/>
      <button  className="flex justify-center mt-3 gap-3 rounded-xl bg-slate-50 items-center h-8"><img src="../images/Google.png" alt="" /><p>Sign up with Google</p></button>
   <div className="text-center flex flex-col gap-3 mt-3 text-xs">
-    <p>Already have an account? <Link className="text-blue-700" to={"/login"}>Log in</Link> </p>
+    <p>Already have an account? <Link className="text-blue-700" to={"/signIn"}>Sign In</Link> </p>
     <p>Go back to <Link className="text-blue-700" to={"/"}>home page</Link> </p>
   </div>
   
