@@ -37,9 +37,17 @@ const Display = ({ open, setOpen }) => {
           <Link to={"/"} className='flex justify-center py-2 px-3 rounded-full '>Home</Link>
           {token?(<Link to={"/Mangas"} className='flex justify-center py-2 px-3 rounded-full'>Mangas</Link>) : null}
             {author ? (
+              <>
               <Link to={'/manga-form'} className='flex justify-center py-2 px-3 rounded-full'>
               New Manga
             </Link>
+            <Link to={'/64f16659401f669668888fe1/chapter-form'} className='flex justify-center py-2 px-3 rounded-full'>
+              New Chapter
+            </Link>
+            <Link to={'/edit/64f16659401f669668888fe1'} className='flex justify-center py-2 px-3 rounded-full'>
+              Edit Chapter
+            </Link>
+            </>
           ) : null}
         </div>
         <div className='text-white border-b-2 flex flex-col items-center px-3 pt-2 pb-4 gap-4'>

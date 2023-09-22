@@ -12,6 +12,7 @@ import MangaForm from '../pages/MangaForm'
 
 import SignUp from '../pages/SignUp'
 import NotAllow from '../components/NotAllow'
+import EditChapter from '../pages/EditChapter'
 const router=createBrowserRouter([
     {
         path:"/",
@@ -56,6 +57,9 @@ const router=createBrowserRouter([
             {
                 path:"/notAllow",
                 element: <NotAllow/>,
+            },{
+                path: "/edit/:manga_id",
+                element: <EditChapter/>
             }
         ],
     },

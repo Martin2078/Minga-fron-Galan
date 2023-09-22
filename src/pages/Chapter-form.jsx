@@ -19,7 +19,7 @@ const ChapterForm = () => {
     const inputPages = pages.current.value;
     const inputOrder = order.current.value;
     const newChapterData = {
-      manga_id: "64f3aa96d9cc8ec6d82d73e9",
+      manga_id: "64f16659401f669668888fe1",
       title: inputTitle,
       order: inputOrder,
       pages: inputPages.split(",")
@@ -28,13 +28,12 @@ const ChapterForm = () => {
       try {
         const { data } = await axios.post("http://localhost:4000/chapters/", newChapterData, {
           headers: {
-            Authorization: "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGYzYTg0YWMwMGU4OWQ0MTI3NWM5M2QiLCJlbWFpbCI6ImlnbmFAbWguY29tLmFyIiwiaWF0IjoxNjk0NjE4Mjk5LCJleHAiOjE2OTQ3MDQ2OTl9.oLO48xhEERMJS2j4d1kp4IXigqNilaHbjUzZ_zn4XYo"
+            Authorization: "Bearer " + token
           }
   
-        }
-  
-        );
-        setMessage([]); // Limpiar mensajes de error en caso de Ã©xito
+        });
+        console.log(data)
+        setMessage([data.message]); // Limpiar mensajes de error en caso de Ã©xito
         setDataResponse(data); // Almacenar la respuesta en el nuevo estado
       } catch (error) {
         console.error(error);

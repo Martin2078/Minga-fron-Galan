@@ -23,6 +23,7 @@ const objeto={
 }
 try {
   let respuesta= await axios.post('http://localhost:4000/auth/signin',objeto)
+  console.log(respuesta)
   dispatch(profile(respuesta.data.response))
   navigate("/")
 } catch (error) {
