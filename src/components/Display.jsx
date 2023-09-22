@@ -5,13 +5,12 @@ import { useSelector } from 'react-redux'
 import ButtonNav from './ButtonNav'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
-import profile from '../redux/actions/me_authors'
 import { useNavigate } from 'react-router-dom'
 import logout from '../redux/actions/loggoutAction'
 
 const Display = ({ open, setOpen }) => {
 
-  const { user, token } = useSelector((store) => store.profile)
+  const { user , token } = useSelector((store) => store.profile)
   let author=false
   if(user.role>0){
     author=true }
@@ -21,6 +20,8 @@ const Display = ({ open, setOpen }) => {
     let headers = { headers: { 'Authorization': `Bearer ${token}` } }
     try {
       await axios.post('http://localhost:4000/auth/signout', null, headers)
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
       dispatch(logout())
       navigate("/")
     } catch (error) {

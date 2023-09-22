@@ -3,12 +3,14 @@ import { mangaReducer } from "./reducers/mangaReducer.js";
 import profile_Reducer from './reducers/me_authors.js'
 import mangas_news from './reducers/mangas_news.js'
 import { mangasReducer } from './reducers/mangasReducer.js'
+import commentsReducer from "./reducers/commentsReducers.js";
 
 export const store = configureStore({
     reducer: {
         mangaReducer,
         mangas : mangasReducer,
         profile: profile_Reducer,
-        mangas_news
+        mangas_news,
+        comments: commentsReducer
     }
 })

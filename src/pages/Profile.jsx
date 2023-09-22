@@ -5,18 +5,26 @@ import Author from './Author'
 import { useEffect } from 'react'
 import NotAllow from '../components/NotAllow.jsx'
 import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import profile from '../redux/actions/me_authors'
 const Profile = () => {
 
 const[hasAuthor, setHasAuthor] = useState(false)
 const [usuario, setUsuario] = useState({})
 const { user, token } = useSelector((store) => store.profile)
 const userId=user._id
-useEffect(()=>{
- 
-  getUser()
+const dispatch=useDispatch()
 
-  
-},[])
+useEffect(()=>{
+  getUser()
+  if(!token.length>0){
+    if (localStorage.length>0) {
+         const tokenLocal=localStorage.getItem('token')
+         const userLocal= JSON.parse(localStorage.getItem('user'))
+         dispatch(profile({token: tokenLocal,findUser: userLocal}))
+       }
+     }
+},[token])
 let handleHasAuthor=(data)=>{
 
   if(data.userHasAuthor){

@@ -8,6 +8,7 @@ import MangaRating from './MangasRating'
 import { useSelector, useStore, useDispatch } from 'react-redux'
 import { saveManga } from '../redux/actions/mangaAction'
 import NotAllow from './NotAllow'
+import profile from '../redux/actions/me_authors'
 
 
 let MangaDetail = () => {
@@ -45,7 +46,14 @@ let MangaDetail = () => {
       .catch((err) => {
         console.log('Error al obtener los capítulos: ', err)
       })
-  }, [id, currentPage, showChapters])
+      if(!token.length>0){
+        if (localStorage.length>0) {
+             const tokenLocal=localStorage.getItem('token')
+             const userLocal= JSON.parse(localStorage.getItem('user'))
+             dispatch(profile({token: tokenLocal,findUser: userLocal}))
+           }
+         }
+  }, [id, currentPage, showChapters,token])
   
   return (<>
     {token?(<div>

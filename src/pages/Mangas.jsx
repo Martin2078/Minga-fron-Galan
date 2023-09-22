@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import {filters} from "../redux/actions/mangasAction";
 import NotAllow from '../components/NotAllow';
+import profile from '../redux/actions/me_authors';
 
 const Mangas = () => {
 
@@ -98,8 +99,14 @@ const Mangas = () => {
   useEffect(() => {
     getMangas()
     getCategories()
-
-  }, [text, check, page])
+    if(!token.length>0){
+      if (localStorage.length>0) {
+           const tokenLocal=localStorage.getItem('token')
+           const userLocal= JSON.parse(localStorage.getItem('user'))
+           dispatch(profile({token: tokenLocal,findUser: userLocal}))
+         }
+       }
+  }, [text, check, page,token])
 
   return (
     <>

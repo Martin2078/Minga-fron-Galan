@@ -3,13 +3,15 @@ import Alert from '../components/Alert';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
 import NotAllow from '../components/NotAllow';
+import profile from '../redux/actions/me_authors';
+import { useDispatch } from 'react-redux';
 
 const ChapterForm = () => {
   const [show, setShow] = useState(false);
   const [message, setMessage] = useState([]);
   const [dataResponse, setDataResponse] = useState(null);
   const token = useSelector((store)=>store.profile.token)
-
+  const dispatch=useDispatch()
   const title = useRef();
   const order = useRef();
   const pages = useRef();
@@ -49,7 +51,14 @@ const ChapterForm = () => {
     if (dataResponse && dataResponse.message || message.length > 0) {
       setShow(true); // Mostrar la alerta si hay un mensaje en la respuesta
     }
-  }, [dataResponse, message]);
+    if(!token.length>0){
+      if (localStorage.length>0) {
+           const tokenLocal=localStorage.getItem('token')
+           const userLocal= JSON.parse(localStorage.getItem('user'))
+           dispatch(profile({token: tokenLocal,findUser: userLocal}))
+         }
+       }
+  }, [dataResponse, message,token]);
 
   return (<>
     {token?(<div className='h-screen bg-slate-100 flex flex-col justify-center items-center'>

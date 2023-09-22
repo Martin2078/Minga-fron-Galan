@@ -4,9 +4,12 @@ import axios from 'axios'
 import Alert from '../components/Alert'
 import { useSelector } from 'react-redux'
 import NotAllow from '../components/NotAllow'
+import profile from '../redux/actions/me_authors'
+import { useDispatch } from 'react-redux'
 
 const MangaForm = () => {
     const [categories, setCategories] = useState([])
+    const dispatch=useDispatch()
     const [formData, setFormData] = useState({
         title: '',
         category_id: '',
@@ -70,7 +73,14 @@ const MangaForm = () => {
 
     useEffect(() => {
         getCategories()
-    },[])
+        if(!token.length>0){
+            if (localStorage.length>0) {
+                 const tokenLocal=localStorage.getItem('token')
+                 const userLocal= JSON.parse(localStorage.getItem('user'))
+                 dispatch(profile({token: tokenLocal,findUser: userLocal}))
+               }
+             }
+    },[token])
 
     useEffect(() => {
         if (dataResponse || message.length > 0) {

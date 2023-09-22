@@ -1,9 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import CommentList from './CommentList';
 
 const MangaContent = (props) => {
   const { manga, chapters, hasPrev, hasNext, showChapters, onPageChange } = props
   const [currentPage, setCurrentPage] = useState(1)
+  const [open,setOpen]=useState(false)
+  const [chapterId,setChapterId]=useState()
+  const [chapterTitle,setChapterTitle]=useState()
 
   const handlePrevPage = () => {
     if (hasPrev) {
@@ -35,7 +39,9 @@ const MangaContent = (props) => {
                   <div className='flex flex-col ml-2 gap-2'>
                     <p>{chapter?.title}</p>
                     <div className='flex'>
-                      <img src='../images/icon_comment.png' alt='icon_comment' />
+                      <button onClick={()=>{if (!open) {
+                        setOpen(!open)
+                      }; setChapterId(chapter._id); setChapterTitle(chapter.title)}}><img src='../images/icon_comment.png' alt='icon_comment'/></button>
                       <p>N° XX</p>
                     </div>
                   </div>
@@ -61,6 +67,8 @@ const MangaContent = (props) => {
           <p className='px-4 pt-2 pb-10'>{manga?.description}</p>
         </div>
       )}
+       {open ? (<CommentList open={open} setOpen={setOpen} chapter_id={chapterId} chapterName={chapterTitle}/>) : (null)}
+
     </div>
   );
 };
