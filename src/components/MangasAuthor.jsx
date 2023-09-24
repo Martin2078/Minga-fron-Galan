@@ -7,13 +7,14 @@ import { useEffect } from 'react'
 const CrearCards =(props)=>{
    
     const{mangas} = props
+    console.log(mangas)
     return mangas?.map(item=>{
       return(
         
-          <div className='flex flex-col w-1/3 h-1/3 text-center'>
+          <Link to={'/mymangas'} className='flex flex-col w-1/3 h-1/3 text-center'>
                 <img src={item.cover_photo} alt="coverPhoto" className='object-cover w-full h-4/5' style={{borderRadius:"10px"}} /> 
                 <p>{item.title} </p>
-          </div>
+          </Link>
         
 
       )

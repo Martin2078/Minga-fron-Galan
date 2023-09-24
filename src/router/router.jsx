@@ -9,9 +9,11 @@ import ChapterForm from '../pages/Chapter-form'
 import SignIn from '../pages/signIn'
 import MangaDetail from '../components/MangaDetail'
 import MangaForm from '../pages/MangaForm'
-
+import MyMangas from '../pages/MyMangas'
+import MangaEditForm from '../components/MangaEditForm'
 import SignUp from '../pages/SignUp'
 import NotAllow from '../components/NotAllow'
+
 const router=createBrowserRouter([
     {
         path:"/",
@@ -56,6 +58,14 @@ const router=createBrowserRouter([
             {
                 path:"/notAllow",
                 element: <NotAllow/>,
+            },
+            {
+                path: "/mymangas",
+                element: <MyMangas />
+            },
+            {
+                path: "/mymangas/editmanga/:id",
+                element: <MangaEditForm />
             }
         ],
     },

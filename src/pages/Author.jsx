@@ -22,7 +22,7 @@ let getMangas=()=>{
     axios(`http://localhost:4000/mangas/news/${user.authorUser_id}`)
    .then(res=> {
     console.log(res)
-    let data = res.data.respuesta.response
+    let data = res.data.respuesta.response.all
     
     setMangas(data)
     funcion(data)
@@ -38,15 +38,13 @@ const funcion = (data)=>{
     if(data.all){
         
         setTipo("all")
-    }else if(data.logo){
-        setTipo("logo")
     }else{
         
         setTipo("news")
     }
 }
 }
-console.log(tipo)
+console.log(mangas)
 
 
     return(
@@ -55,10 +53,7 @@ console.log(tipo)
         user={user}
         />
         
-        {
-            tipo == "logo"? <LogoAuthor mangas={mangas}/> :
-            tipo== "news" ? <NewsAuthor mangas={mangas} /> : <MangasAuthor mangas={mangas.all} />
-        }
+        <MangasAuthor mangas={mangas} />
         
         </>
 
