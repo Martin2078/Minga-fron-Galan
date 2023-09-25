@@ -64,7 +64,7 @@ const CommentList = ({ open, setOpen, chapter_id, chapterName }) => {
     }, [commentsStore.error])
 
     return (
-        <div className='w-1/4 h-full bg-white border border-[#4338CA] fixed right-0 bottom-0 flex flex-col items-center'>
+        <div className='lg:w-1/4 min-[320px]:w-full h-full bg-white border border-[#4338CA] fixed lg:right-0 bottom-0 flex flex-col items-center'>
             <div className='flex items-center justify-between w-full h-10 p-6 border-b-2'>
                 <h1 className='text-xl font-bold'>{chapterName}</h1>
                 <button onClick={() => setOpen(!open)} className=''><img src="../../public/images/cruz.png" className='w-4' alt="" /></button>

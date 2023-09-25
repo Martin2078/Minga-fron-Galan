@@ -2,7 +2,7 @@ import React from 'react'
 
 const Comment = ({ datos, commentOpen, setCommentOpen }) => {
     return (
-        <div className='bg-[#4338CA] rounded-xl fixed left-1/4 top-0 flex flex-col items-center h-screen w-3/6 gap-3 py-3 px-4'>
+        <div className='bg-[#4338CA] lg:rounded-xl fixed lg:left-1/4 top-0 flex flex-col items-center h-full lg:w-3/6 min-[320px]:w-full gap-3 py-3 px-4'>
             <div className='p-2 w-full flex items-center justify-center rounded-xl bg-[#FEF1EF]'>
                 <button onClick={() => setCommentOpen(!commentOpen)}><img onClick={()=>setCommentOpen(!commentOpen)} src="../../public/images/cruz.png" className='w-5' alt="" /></button>
             </div>
