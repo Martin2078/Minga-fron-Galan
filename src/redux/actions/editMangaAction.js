@@ -12,7 +12,8 @@ const editManga = createAsyncThunk('editManga', async (info) => {
             console.log('Manga edited:', response.data)
         return response.data
     } catch (error) {
-        console.log(error)
+        console.log(error.response.data)
+        return { error: error.response.data }
     }
 })
 

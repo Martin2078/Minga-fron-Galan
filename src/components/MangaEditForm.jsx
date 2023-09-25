@@ -3,24 +3,21 @@ import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import editManga from '../redux/actions/editMangaAction'
 import myMangasAction from '../redux/actions/myMangasAction'
+import Alert from "../components/Alert"
 
 const EditManga = ({ id, closeModal }) => {
     let dispatch = useDispatch()
     const [formData, setFormData] = useState({})
     const [show, setShow] = useState(false);
     const [message, setMessage] = useState([]);
-    const [dataResponse, setDataResponse] = useState(null);
+    const [editSuccess, setEditSuccess] = useState(false)
     const token = useSelector((state) => state.profile.token)
     const categories = useSelector((state) => state.categories.categories)
     let myMangas = useSelector((state) => state.myMangas.mangas)
-    console.log(myMangas)
     let thisManga = myMangas.filter((manga) => manga._id === id)
-    console.log(thisManga)
     let thisMangasCategory = thisManga[0].category_id
     let { _id, name } = thisMangasCategory
     const referencia = useRef()
-
-    console.log(categories)
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -31,22 +28,29 @@ const EditManga = ({ id, closeModal }) => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            await dispatch(editManga({token, id, formData}))
+            const edit = await dispatch(editManga({token, id, formData}))
             await dispatch(myMangasAction(token))
-            closeModal(false)
+            console.log(edit)
+            if (edit.payload.error) {
+                setMessage(edit.payload.error.message)
+                setShow(true)
+            } else {
+                closeModal(false)
+            }
         } catch (error) {
             console.log('Error:', error)
+            setMessage(`Error: ${error.message}`)
         }
     }
 
-    /* useEffect(() => {
-        if (dataResponse || message.length > 0) {
+    useEffect(() => {
+        if (message.length > 0) {
           setShow(true);
         }
-      }, [dataResponse, message]); */
+      }, [message]);
 
     return (
-        <div className='absolute h-screen w-screen bg-slate-100 flex flex-col justify-center items-center md:flex-row'>
+        <div className='absolute h-[75vh] w-[70vh] bg-slate-100 flex flex-col justify-center items-center md:flex-row'>
             <form ref={referencia} onSubmit={handleSubmit} className='flex flex-col h-2/3 w-2/3 items-center'>
                 <label htmlFor="category-select" className='text-2xl pb-5'>Edit Manga</label>
                 <input
@@ -98,10 +102,10 @@ const EditManga = ({ id, closeModal }) => {
                 </button>
             </form>
             <div className='text-center max-md: hidden md:h-2/3 md:flex md:flex-col md:items-center md:w-1/2 md:me-10'>
-                <h1>Chapter X: Titulo del capitulo</h1>
-                <img className='text h-96 w-52' src="../../images/mangaEditForm.png" alt="" />
+                <h1>{thisManga[0].title}</h1>
+                <img className='text h-96 w-52' src={thisManga[0].cover_photo} alt="" />
             </div>
-            {/*{show && <Alert show={show} message={message} data={dataResponse} setShow={setShow} />}*/}
+            {show && <Alert show={show} message={message} setShow={setShow} />}
         </div>
     )
 }

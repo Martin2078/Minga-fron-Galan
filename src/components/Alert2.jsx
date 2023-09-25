@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 const Alert = ({ show, setShow, message, handleDelete, mangaId }) => {
+
+  const containerRef = useRef(null)
 
   function handleAccept(id) {
     handleDelete(id)
     setShow(!show)
   }
   return (
-    <div className='flex h-screen justify-center items-center absolute'>
-      <div className='min-h-32 w-64 bg-white flex flex-col items-center justify-center rounded-lg'>
+    <div
+      className={`${
+        show ? 'block' : 'hidden'
+      } fixed top-0 left-0 w-full h-full flex justify-center items-center`}
+    >
+      <div
+        ref={containerRef}
+        className="relative min-h-32 w-64 bg-white flex flex-col items-center justify-center rounded-lg"
+      >
         {Array.isArray(message) ? (
           message.map((errorMessage) => (
             <h1

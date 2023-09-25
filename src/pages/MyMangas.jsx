@@ -2,24 +2,27 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom'
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux'
-import Alert from "../components/Alert2";
+import Alert from "../components/Alert2"
+import Alert2 from "../components/Alert"
 import myMangasAction from '../redux/actions/myMangasAction'
 import deleteManga from '../redux/actions/deleteMangaAction'
 import getCategoriesAction from '../redux/actions/getCategoriesAction'
 import MangaEditForm from '../components/MangaEditForm'
+import axios from "axios";
 
 let MyMangas = () => {
     
     let dispatch = useDispatch()
-    let [show, setShow] = useState(false);
     let [message, setMessage] = useState([]);
-    /* let [dataResponse, setDataResponse] = useState(null); */
     const navigate = useNavigate()
     const token = useSelector((state) => state.profile.token)
+    const user = useSelector((state) => state.profile.user)
+    const [authorInfo, setAuthorInfo] = useState({})
     let myMangas = useSelector((state) => state.myMangas.mangas)
 
     const [openModals, setOpenModals] = useState({})
     const [deleteAlerts, setDeleteAlerts] = useState({})
+    const [deleteSuccess, setDeleteSuccess] = useState(false)
 
     const getCategories = async () => {
         dispatch(getCategoriesAction())
@@ -29,20 +32,16 @@ let MyMangas = () => {
         dispatch(myMangasAction(token))
     }
 
-    /* const removeManga = async (id) => {
-        dispatch(deleteManga({token, id}))
-    }
- */
     async function handleDelete(id) {
         try {
             await dispatch(deleteManga({ token, id }))
             await dispatch(myMangasAction(token))
+            setDeleteSuccess(true)
         } catch (error) {
             console.log('Error:', error)
         }
     }
     
-
     function handleDeleteButton(mangaId){
         setMessage("Are you sure you want to delete this manga?")
         setDeleteAlerts({ ...deleteAlerts, [mangaId]: true })
@@ -51,12 +50,24 @@ let MyMangas = () => {
     useEffect(() => {
         getCategories()
         getMyMangas()
+        getAuthorInfo(user._id)
     }, [])
-    console.log(myMangas)
+
+    async function getAuthorInfo(id) {
+        try {
+          let { data } = await axios.get(`http://localhost:4000/authors/${id}`)
+          console.log(data)
+          setAuthorInfo(data.response)
+        } catch (error) {
+          console.log(error)
+        }
+      }
+    console.log(authorInfo)
+
     return (
         <>
             <div className="w-full min-h-[55vh] bg-cover align-middle flex justify-center items-center lg:bg-[url('../images/backgroundMyMangas.png')] lg:h-4/6 lg:bg-center min-[320px]:bg-[url('../images/backgroundMyMangas.png')] min-[320px]:h-screen">
-                <h1>Author's Name</h1>
+                <h1 className="text-white text-5xl">{authorInfo.profile?.authorName}</h1>
             </div>
             <div className="flex flex-col">
                 <div className="justify-center p-4 flex flex-wrap gap-4">
@@ -74,9 +85,17 @@ let MyMangas = () => {
                             <img className='lg:w-28 lg:h-40 min-[320px]:h-32 min-[320px]:w-28 object-initial object-left rounded-r-xl' src='../../images/newManga.png' alt="" />
                         </div>
                     </div>
+                    {deleteSuccess && (
+                        <Alert2
+                            show={true}
+                            message="Manga has been successfully deleted!"
+                            setShow={setDeleteSuccess}
+                        />
+                    )}
                 {myMangas?.map( manga => (
                     <div key={manga._id} className='flex items-center lg:w-2/6 min-[320px]:w-5/6 justify-center rounded-xl bg-white shadow-lg lg:hover:scale-110'>
-                        <div className='px-[3px] lg:py-14 min-[320px]:py-10 mr-4 bg-[#8883F0]'></div>
+                        {openModals[manga._id] && <MangaEditForm id={manga._id} closeModal={() => setOpenModals({ ...openModals, [manga._id]: false })} />}
+                        <div className='px-[3px] lg:py-14 min-[320px]:py-10 mr-4' style={{ backgroundColor: manga.category_id.color }}></div>
                         <div className='py-5 px-0 flex flex-col items-start w-7/12 h-full gap-6'>
                             <div>
                                 <div className="flex gap-4">
@@ -98,7 +117,7 @@ let MyMangas = () => {
                                 >
                                     Edit
                             </button>
-                            {openModals[manga._id] && <MangaEditForm id={manga._id} closeModal={() => setOpenModals({ ...openModals, [manga._id]: false })} />}
+                            
                             <button
                                 onClick={() => handleDeleteButton(manga._id)}
                                 className='p-1 px-6 bg-red-100 text-rose-400 text-sm rounded-xl lg:flex'

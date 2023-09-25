@@ -45,7 +45,7 @@ const Display = ({ open, setOpen }) => {
         <div className='text-white border-b-2 flex flex-col items-center px-3 pt-2 pb-4 gap-4'>
           {!token ? (<p className='font-bold'>Join Us</p>) : null}
           {token ? (<><div className='flex gap-6 items-center'>
-            <Link to={"/Me"}><img src={user.photo} className='w-10 rounded-full' alt="" /></Link>
+            <Link to={"/mymangas"}><img src={user.photo} className='w-10 rounded-full' alt="" /></Link>
             <p className='text-base'>{user.email}</p>
           </div>
             <ButtonNav to="/" title="Log out" function={signout} />
