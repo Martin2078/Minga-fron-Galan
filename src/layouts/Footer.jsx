@@ -37,7 +37,7 @@ const footer = () => {
                 <a href=""><img src="../images/vimeo-black.svg" alt="" /></a>
                 <a href=""><img src="../images/youtube-black.svg" alt="" /></a>
               </div>
-              <button className=' flex w-5/6 gap-1 justify-center items-center px-20 py-1 bg-gradient-to-r from-[#4338CA] to-[#5E52F3] rounded-3xl text-white'>Donate<img className='h-3' src="../images/Union.png" alt="" /></button>
+              <Link to="/donate" className=' flex w-5/6 gap-1 justify-center items-center px-20 py-1 bg-gradient-to-r from-[#4338CA] to-[#5E52F3] rounded-3xl text-white'>Donate<img className='h-3' src="../images/Union.png" alt="" /></Link>
             </div>
             </div>
           </div>

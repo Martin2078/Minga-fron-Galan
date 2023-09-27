@@ -13,6 +13,7 @@ import MyMangas from '../pages/MyMangas'
 import MangaEditForm from '../components/MangaEditForm'
 import SignUp from '../pages/SignUp'
 import NotAllow from '../components/NotAllow'
+import Donate from '../components/Donate'
 
 const router=createBrowserRouter([
     {
@@ -66,6 +67,10 @@ const router=createBrowserRouter([
             {
                 path: "/mymangas/editmanga/:id",
                 element: <MangaEditForm />
+            },
+            {
+                path: "/donate",
+                element: <Donate />
             }
         ],
     },
