@@ -6,6 +6,7 @@ import { mangasReducer } from './reducers/mangasReducer.js'
 import myMangasReducer from './reducers/myMangasReducer.js'
 import getCategoriesReducer from "./reducers/getCategoriesReducer.js";
 import editMangaReducer from "./reducers/editMangaReducer.js";
+import donateReducer from "./reducers/donateReducer.js";
 
 export const store = configureStore({
     reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
         mangas_news,
         myMangas: myMangasReducer,
         categories: getCategoriesReducer,
-        editMangaReducer
+        editMangaReducer,
+        donate: donateReducer
     }
 })
