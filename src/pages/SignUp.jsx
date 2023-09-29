@@ -8,6 +8,7 @@ const SignUp =()=>{
 const [dataForAlert, setDataForAlert] = useState([])
 const [show, setShow] = useState(false)
 
+
 const [response, setResponse ] = useState(false)
 let dataMessage =[]
 let navigate = useNavigate()
@@ -30,6 +31,49 @@ let navigate = useNavigate()
             }
             
           }
+
+
+          const handleSignUpClick =  async(e,data) => {
+            e.preventDefault()
+            
+            console.log(data)
+            try {
+              setShow(!show)
+               await axios.post('http://localhost:4000/auth/google-signin', data)
+             .then(res =>{ 
+                console.log(res.data.message)
+                if(res.data.success){
+                    setResponse(true)
+                    dataMessage.push(res.data.message)
+                    setDataForAlert(dataMessage)
+                }else{
+                    dataMessage.push(res.data.message)
+                    setDataForAlert(dataMessage)
+                }
+                
+                setShow(true)
+                }
+                )
+              
+        
+            } catch (error) {
+                error =>{
+                    console.log(error)
+                    if(error.response){
+                      setDataForAlert(error.response.data.message)
+                      setShow(true)
+                    } else{
+                        dataMessage.push("Error del servidor")
+                        setDataForAlert(dataMessage)
+                        setShow(true)
+                    }
+                    
+                    
+                    }
+             
+            }
+        
+          };
         
 
         const create = async (data) =>{
@@ -86,7 +130,7 @@ let navigate = useNavigate()
            
           <RegisterForm
           handleCreate = {handleCreate}
-          
+          handleSignUpClick = {handleSignUpClick}
           />
            </div>
            {show ? <Alert
