@@ -119,7 +119,14 @@ const MangaForm = () => {
             <option key={category._id} value={category.name}>{category?.name}</option>
             ))}
         </select>
-        <div className='w-full md:w-1/2 h-fit pt-5 flex flex-col items-start gap-1'>
+        {window.innerWidth<1024?(<input
+            type="text"
+            name="cover_photo"
+            value={formData.cover_photo}
+            onChange={handleInputChange}
+            className='border-b-2 border-neutral-400 bg-slate-100 text-xs pt-5 w-full md:w-1/2'
+            placeholder='Insert cover photo'
+        />):(<div className='w-full md:w-1/2 h-fit pt-5 flex flex-col items-start gap-1'>
         <p className='text-xs text-start'>Insert Photo</p>
         <input
             type="file"
@@ -127,7 +134,7 @@ const MangaForm = () => {
             onChange={(e)=>setFile(e)}
             className='border-b-2 border-neutral-400 bg-slate-100 text-xs w-full pb-0.5'
         />
-        </div>
+        </div>)}
         <input
             type="text"
             name="description"
