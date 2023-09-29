@@ -56,11 +56,11 @@ let getUser = () => {
 
   return (
     <>
+    {token? 
+    (hasAuthor? (<Author user = {usuario}/>) : (<NotAllow props={"Lo lamentamos, al parecer no posees los permisos suficientes para ver esta pagina"} />))
+    :
+    (<NotAllow props={"Debes iniciar sesion antes de ingresar aqui"} />)}
     
-    {hasAuthor? <Author 
-    user = {usuario}
-    
-    /> : <NotAllow props={"Debes iniciar sesion antes de ingresar aqui"} />}
 
         
       

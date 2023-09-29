@@ -13,7 +13,7 @@ const MangaForm = () => {
     const [formData, setFormData] = useState({
         title: '',
         category_id: '',
-        cover_photo: '',
+        cover_photo: null,
         description: ''
     })
     const [show, setShow] = useState(false);
@@ -37,20 +37,26 @@ const MangaForm = () => {
       }
 
     const navigate = useNavigate()
-
+    
+    function setFile(e) {
+        setFormData({...formData,cover_photo:e.target.files[0]})
+    }
     const handleSubmit = async (e) => {
         e.preventDefault()
+        const formData2=new FormData();
+        formData2.append('cover_photo',formData.cover_photo)
+        formData2.append('title',formData.title)
+        formData2.append('description',formData.description)
+        formData2.append('category_id',formData.category_id)
         try {
-            const response = await axios.post('http://localhost:4000/mangas', {
-                ...formData
-            },{
+            const response = await axios.post('http://localhost:4000/mangas',formData2,{
                 headers: {Authorization:'Bearer ' + token}
             })
             console.log('Manga created:', response.data)
             setFormData({
                 title: '',
                 category_id: '',
-                cover_photo: '',
+                cover_photo: null,
                 description: ''
             })
             setMessage(response.data.message)
@@ -113,14 +119,15 @@ const MangaForm = () => {
             <option key={category._id} value={category.name}>{category?.name}</option>
             ))}
         </select>
+        <div className='w-full md:w-1/2 h-fit pt-5 flex flex-col items-start gap-1'>
+        <p className='text-xs text-start'>Insert Photo</p>
         <input
-            type="text"
+            type="file"
             name="cover_photo"
-            value={formData.cover_photo}
-            onChange={handleInputChange}
-            className='border-b-2 border-neutral-400 bg-slate-100 text-xs pt-5 w-full md:w-1/2'
-            placeholder='Insert cover photo'
+            onChange={(e)=>setFile(e)}
+            className='border-b-2 border-neutral-400 bg-slate-100 text-xs w-full pb-0.5'
         />
+        </div>
         <input
             type="text"
             name="description"

@@ -3,6 +3,7 @@ import axios from "axios";
 import RegisterForm from "../components/RegisterForm";
 import { useNavigate } from "react-router-dom";
 import Alert from "../components/Alert";
+import formData from 'form-data'
 
 const SignUp =()=>{
 const [dataForAlert, setDataForAlert] = useState([])
@@ -11,10 +12,10 @@ const [show, setShow] = useState(false)
 const [response, setResponse ] = useState(false)
 let dataMessage =[]
 let navigate = useNavigate()
-    const handleCreate = (e,data)=>{
+    const handleCreate = (e,formData)=>{
         
         e.preventDefault(); 
-        create(data);
+        create(formData);
           }
      
           const setShowAlert = ()=>{
@@ -32,9 +33,10 @@ let navigate = useNavigate()
           }
         
 
-        const create = async (data) =>{
-           await axios.post("http://localhost:4000/auth/signup",data)
-            .then(res =>{ 
+        const create = async (formData) =>{
+           await axios.post("http://localhost:4000/auth/signup",formData)
+            .then(res =>{
+                console.log(res.data.response);
                 console.log(res.data.message)
                 if(res.data.success){
                     setResponse(true)

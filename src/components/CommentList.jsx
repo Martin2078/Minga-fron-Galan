@@ -87,7 +87,7 @@ const CommentList = ({ open, setOpen, chapter_id, chapterName }) => {
                                              setThisComment({ ...thisComment, _id: comentario._id });setDeleteC(true)
                                         }} className='border bg-[#FEF1EF] px-2 rounded'><img src="../../public/images/deleteComment.png" className='w-4' alt="" /></button>
                                     </div>
-                                    <img src={comentario.user_id.photo} className='w-8 rounded-full object-cover' alt="" />
+                                    <img src={comentario.user_id.photo} className='w-8 h-8 rounded-full object-center' alt="" />
                                 </div>
                                 <div className='h-fit px-1 py-1 pb-5 cursor-pointer' onClick={() => { if (!commentOpen) { setCommentOpen(!commentOpen) }; setThisComment({ ...thisComment, createdAt: comentario.createdAt, text: comentario.text, user_id: comentario.user_id }); }}>
                                     <h2 className='font-bold'>{comentario.user_id.email}</h2>
@@ -97,7 +97,7 @@ const CommentList = ({ open, setOpen, chapter_id, chapterName }) => {
                             :
                             (<div className='flex flex-col w-full h-28 gap-1'>
                                 <div className='flex gap-2 items-center'>
-                                    <img src={comentario.user_id.photo} className='w-8 rounded-full object-cover' alt="" />
+                                    <img src={comentario.user_id.photo} className='w-8 h-8 rounded-full object-center' alt="" />
                                     <h2 className='font-bold'>{comentario.user_id.email}</h2>
                                 </div>
                                 <div className='h-fit px-1 cursor-pointer' onClick={() => { if (!commentOpen) { setCommentOpen(!commentOpen) }; setThisComment({ ...thisComment, createdAt: comentario.createdAt, text: comentario.text, user_id: comentario.user_id }); }}>
