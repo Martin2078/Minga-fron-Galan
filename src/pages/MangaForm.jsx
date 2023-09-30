@@ -37,7 +37,6 @@ const MangaForm = () => {
       }
 
     const navigate = useNavigate()
-    
     function setFile(e) {
         setFormData({...formData,cover_photo:e.target.files[0]})
     }
@@ -48,6 +47,7 @@ const MangaForm = () => {
         formData2.append('title',formData.title)
         formData2.append('description',formData.description)
         formData2.append('category_id',formData.category_id)
+
         try {
             const response = await axios.post('http://localhost:4000/mangas',formData2,{
                 headers: {Authorization:'Bearer ' + token}
