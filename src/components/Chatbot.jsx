@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import socket from './Socket';
 import ChatIcon from './ChatbotIcon';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { addMessage } from '../redux/actions/chatbotMessageAction';
+import { setMsg } from '../redux/actions/chatbotMsg';
+
+
 
 export default function Chatbot() {
     let { user } = useSelector((store) => store.profile)
-    const [messages, setMessages] = useState([{ value: 'Hi, there! I\'m Mingabot :) How can I help you? Type "!help" to display my command list', id: 'bot' }]);
-    const [msg, setMsg] = useState('');
+    const { messages, msg } = useSelector((store) => store.chatReducer);
+    const dispatch = useDispatch();
     const [chatOpen, setChatOpen] = useState(false);
 
     function toggleChat() {
@@ -21,9 +25,7 @@ export default function Chatbot() {
     useEffect(() => {
 
         const responseHandler = async (response) => {
-            setMessages(prevMessages => {
-                return [...prevMessages, { value: response, id: 'bot' }];
-            });
+            dispatch(addMessage({ value: response, id: 'bot' }));
         };
 
         socket.on('response', responseHandler);
@@ -37,9 +39,9 @@ export default function Chatbot() {
         if (e.key === 'Enter' || e.type === 'submit') {
             e.preventDefault();
             if (msg != '' && msg != ' ') {
-                setMessages(prevMessages => [...prevMessages, { value: msg, id: 'user' }]);
+                dispatch(addMessage({ value: msg, id: 'user' }));
                 socket.emit('chat', msg);
-                setMsg('');
+                dispatch(setMsg(''));
             }
         }
     }
@@ -56,7 +58,7 @@ export default function Chatbot() {
 
     return (
         <>
-            {user.role === 1 || user.role === 2 ? (
+             {user.role === 1 || user.role === 2 ? (
                 <div className={`fixed bottom-4 hidden lg:block bg-white border-2 border-black rounded-full p-2 right-4 ${chatOpen ? 'w-60' : 'w-12'}`}>
                     <ChatIcon onClick={toggleChat} isVisible={chatOpen} />
 
@@ -81,7 +83,7 @@ export default function Chatbot() {
                                     <input
                                         onKeyDown={sendMsg}
                                         value={msg}
-                                        onChange={(e) => setMsg(e.target.value)}
+                                        onChange={(e) => dispatch(setMsg(e.target.value))}
                                         className='w-[50%] h-5'
                                         type="text"
                                     />
