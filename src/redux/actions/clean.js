@@ -1,10 +1,10 @@
 import { createAction } from "@reduxjs/toolkit";
 
-const cleanError = createAction(
+const clean = createAction(
     'clean',
     ()=>{return {
         payload:{}        
     }}
 )
 
-export default cleanError
+export default clean

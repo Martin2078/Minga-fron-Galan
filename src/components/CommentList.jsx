@@ -2,28 +2,35 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import inputActions from '../redux/actions/commentsActions'
 import CommentOfComment from './CommentOfComment'
-import Alert from './Alert'
-import cleanError from '../redux/actions/cleanError'
+import cleanAction from '../redux/actions/clean'
 import Toast, { Toaster, toast } from 'react-hot-toast'
+import CommentAuthor from './commentAuthor'
+import CommentNotAuthor from './CommentNotAuthor'
+import EditComment from './EditComment'
+import DeleteComment from './DeleteComment'
+
+
 const CommentList = ({ open, setOpen, chapter_id, chapterName }) => {
     const commentText = useRef()
     const { user, token } = useSelector((store) => store.profile)
     const dispatch = useDispatch()
+
     const readComments = inputActions.readComments
     const deleteComment = inputActions.deleteComments
     const updateComment = inputActions.updateComments
     const createComment = inputActions.createComment
+
     let commentsStore = useSelector((store) => store.comments)
     const [show, setShow] = useState(false)
     const [thisComment, setThisComment] = useState({})
     const [commentOpen, setCommentOpen] = useState(false)
     const [renderizar, setRenderizar] = useState(false)
     const [edit, setEdit] = useState()
-    const [deleteC,setDeleteC]=useState(false)
+    const [deleteC, setDeleteC] = useState(false)
+    const [alert,setAlert]=useState()
 
-    function closeAlert(show) {
-        setShow(!show)
-        dispatch(cleanError())
+    function clean() {
+        dispatch(cleanAction())
     }
     function createOneComment() {
         const datos = {
@@ -43,10 +50,10 @@ const CommentList = ({ open, setOpen, chapter_id, chapterName }) => {
     }
     function updateOneComment(id) {
         const datos = {
-            chapter_id:chapter_id,
-            text:thisComment.text,
+            chapter_id: chapter_id,
+            text: thisComment.text,
         }
-        dispatch(updateComment({datos,id}))
+        dispatch(updateComment({ datos, id }))
     }
 
     useEffect(() => {
@@ -56,12 +63,27 @@ const CommentList = ({ open, setOpen, chapter_id, chapterName }) => {
 
 
     useEffect(() => {
+            if (commentsStore.message==="Comment posted" && commentsStore.error===null) {
+                toast.success("Comment Created")
+                inputText.value = ""
+                clean()
+            }else if (commentsStore.message==="updated" && commentsStore.error===null) {
+                Toast.success('Sucessfully changed')
+                setEdit(false)
+                clean()
+            }
+    
         if (commentsStore.error !== null) {
-            setShow(true)
+            toast.error(commentsStore.error)
+            clean()
         } else {
             setShow(false)
         }
-    }, [commentsStore.error])
+
+        
+    }, [commentsStore.error,commentsStore.message,renderizar])
+
+
 
     return (
         <div className='lg:w-1/4 min-[320px]:w-full h-full bg-white border border-[#4338CA] fixed lg:right-0 bottom-0 flex flex-col items-center'>
@@ -76,34 +98,10 @@ const CommentList = ({ open, setOpen, chapter_id, chapterName }) => {
                 {((commentsStore.comments)?.length > 0) ? (commentsStore.comments.map((comentario) => (
                     <div className='h-36 w-full rounded-xl border-2 border-[#666] pt-1 px-2' key={comentario._id}>
                         {(user._id === comentario.user_id._id) ?
-                            (<>
-                                <div className='flex justify-between w-full px-1 py-1'>
-                                    <div className='flex gap-3'>
-                                        <div onClick={() => {setThisComment({ ...thisComment, _id: comentario._id, text: comentario.text });setEdit(true);}} className='cursor-pointer flex gap-2 items-center px-1 rounded border-2'>
-                                            <p className='text-[#0079FF]'>Edit</p>
-                                            <img src="../../public/images/updateComment.png" alt="" className='w-4' />
-                                        </div>
-                                        <button onClick={() => {
-                                             setThisComment({ ...thisComment, _id: comentario._id });setDeleteC(true)
-                                        }} className='border bg-[#FEF1EF] px-2 rounded'><img src="../../public/images/deleteComment.png" className='w-4' alt="" /></button>
-                                    </div>
-                                    <img src={comentario.user_id.photo} className='w-8 h-8 rounded-full object-center' alt="" />
-                                </div>
-                                <div className='h-fit px-1 py-1 pb-5 cursor-pointer' onClick={() => { if (!commentOpen) { setCommentOpen(!commentOpen) }; setThisComment({ ...thisComment, createdAt: comentario.createdAt, text: comentario.text, user_id: comentario.user_id }); }}>
-                                    <h2 className='font-bold'>{comentario.user_id.email}</h2>
-                                    <p className='w-full'>{(comentario.text.length > 20) ? (<>{comentario.text.slice(0, 20)}...</>) : (comentario.text)}</p>
-                                </div>
-                            </>)
+                            (<CommentAuthor setThisComment={setThisComment} thisComment={thisComment} comentario={comentario} setCommentOpen={setCommentOpen} commentOpen={commentOpen} setEdit={setEdit} setDeleteC={setDeleteC} />)
                             :
-                            (<div className='flex flex-col w-full h-28 gap-1'>
-                                <div className='flex gap-2 items-center'>
-                                    <img src={comentario.user_id.photo} className='w-8 h-8 rounded-full object-center' alt="" />
-                                    <h2 className='font-bold'>{comentario.user_id.email}</h2>
-                                </div>
-                                <div className='h-fit px-1 cursor-pointer' onClick={() => { if (!commentOpen) { setCommentOpen(!commentOpen) }; setThisComment({ ...thisComment, createdAt: comentario.createdAt, text: comentario.text, user_id: comentario.user_id }); }}>
-                                    <p className='w-full'>{(comentario.text.length > 20) ? (<>{comentario.text.slice(0, 20)}...</>) : (comentario.text)} </p>
-                                </div>
-                            </div>)}
+                            (<CommentNotAuthor comentario={comentario} commentOpen={commentOpen} setCommentOpen={setCommentOpen} setThisComment={setThisComment} thisComment={thisComment} />)
+                        }
 
                         <div className='w-full h-fit p-1 text-center'>
                             <p className='text-[#666] text-xs'>{comentario.createdAt}</p>
@@ -118,34 +116,25 @@ const CommentList = ({ open, setOpen, chapter_id, chapterName }) => {
                     )}
             </div>
             <div className='absolute bottom-2 w-5/6 h-fit flex border-2 border-[#999] rounded-lg'>
-                {show && (<Alert show={show} setShow={closeAlert} message={commentsStore.error} classes={'-bottom-[22rem]'} />)}
                 <input id='inputText' ref={commentText} className='w-5/6 h-10 p-2 rounded-lg b focus:outline-none' type="text" placeholder='Say something here' />
-                <button onClick={() => { createOneComment(); setRenderizar(true); inputText.value = "" }}><img src="../../public/images/sendComment.svg" className='absolute bottom-2 right-4 w-5' alt="" /></button>
+                <button onClick={() => { 
+                    createOneComment();setRenderizar(true)}}><img src="../../public/images/sendComment.svg" className='absolute bottom-2 right-4 w-5' alt="" /></button>
             </div>
             {commentOpen && (<CommentOfComment datos={thisComment} commentOpen={commentOpen} setCommentOpen={setCommentOpen} />)}
-            <Toaster position='top-center'/>
-            {deleteC && (
-                                                <div className={`border-2 border-black bg-white w-2/6 h-40 flex flex-col items-center justify-evenly fixed top-0 left-[30%]`}>
-                                                    <div>
-                                                        <p className='text-center text-lg font-bold'>You will delete this comment permanently...<br /> Are you sure?</p>
-                                                    </div>
-                                                    <div className='flex gap-4'>
-                                                        <button onClick={() => { deleteOneComment(thisComment._id); setRenderizar(true);setDeleteC(false);Toast.success("Comment Succesfully eliminated") }} className='border border-green-700 bg-green-500 w-12 text-white h-8 rounded-full'>yes</button>
-                                                        <button onClick={() => {setDeleteC(false)}} className='border border-red-700 bg-red-600 w-12 h-8 text-white rounded-full'>no</button>
-                                                    </div>
-                                                </div>)}
-            {edit&&(
-                                            <div className='w-2/6 py-2 px-5 bg-[#4338CA] h-52 flex flex-col justify-evenly items-center rounded-xl fixed top-0 left-[30%]'>
-                                                <h3 className='text-2xl font-bold  rounded-xl p-2 text-white'>Edit Comment</h3>                                    
-                                                    <input type="text" defaultValue={thisComment.text}
-                                                    onKeyUp={(e)=>setThisComment({...thisComment,text:e.target.value})}
-                                                    className='w-full h-20 text-start border-2 focus:outline-none rounded'/>
-                                                <div className='flex w-full justify-evenly'>
-                                                    <button onClick={()=> {Toast.success('Sucessfully changed');updateOneComment(thisComment._id);setEdit(false);setRenderizar(true)}} className='rounded-full px-3 py-1 bg-green-400 text-white'>Save</button>
-                                                    <button onClick={()=> setEdit(false)} className='rounded-full px-3 py-1 bg-red-600 text-white'>Cancel</button>
-                                                </div>
-                                            </div>
-                                        )}
+            <Toaster 
+            position='top-center'
+            toastOptions={{
+                duration:3000,
+            error: {
+                duration:2000,
+            },
+            success:{
+                duration:2000
+            },
+        }}
+            />
+            {deleteC && <DeleteComment deleteOneComment={deleteOneComment} thisComment={thisComment} setDeleteC={setDeleteC} setRenderizar={setRenderizar} Toast={Toast} />}
+            {edit && <EditComment thisComment={thisComment} setThisComment={setThisComment} setEdit={setEdit} setRenderizar={setRenderizar} updateOneComment={updateOneComment}/>}
 
         </div>
     )

@@ -35,10 +35,9 @@ const updateComments=createAsyncThunk('updateComments',async({datos,id})=>
     try {
         let respuesta= await axios.put(`http://localhost:4000/comments/${id}`,datos,headers())
         respuesta=respuesta.data
-        return {comments: respuesta.response,
-            message: respuesta.message}
+        return {message: respuesta.message}
     } catch (error) {
-        return error
+        return {error: error.response.data.message}
     }
 })
 const deleteComments=createAsyncThunk('deleteComments',async(datos)=>

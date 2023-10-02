@@ -1,4 +1,4 @@
-import cleanError from "../actions/cleanError";
+import clean from "../actions/clean";
 import inputActions from "../actions/commentsActions";
 import { createReducer } from "@reduxjs/toolkit"
 const createComments=inputActions.createComment
@@ -15,7 +15,7 @@ let initialState = {
 
 const commentsReducer = createReducer(initialState, (builder) => 
     builder
-        .addCase(cleanError, ()=> {
+        .addCase(clean, ()=> {
             return initialState
         })
         .addCase(createComments.fulfilled, (state, action) => {
@@ -65,17 +65,17 @@ const commentsReducer = createReducer(initialState, (builder) =>
 
 
         .addCase(updateComments.fulfilled, (state, action) => {
-            console.log(action);
             let nuevoEstado = {
                 ...state,
-                comments: action.payload.response,
-                message: action.payload.message,
-                loading:false
             }
+            if (action.payload.error) {
+                nuevoEstado.error=action.payload.error
+                return nuevoEstado
+            }
+           nuevoEstado.message=action.payload.message
             return nuevoEstado
         })
         .addCase(updateComments.pending, (state, action) => {
-            console.log(action);
             let nuevoEstado = {
                 ...state,
                 loading:true
@@ -83,7 +83,6 @@ const commentsReducer = createReducer(initialState, (builder) =>
             return nuevoEstado
         })
         .addCase(updateComments.rejected, (state, action) => {
-            console.log(action);
             let nuevoEstado = {
                 ...state,
                 loading:false,
