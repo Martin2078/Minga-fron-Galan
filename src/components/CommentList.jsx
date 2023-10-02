@@ -92,11 +92,11 @@ const CommentList = ({ open, setOpen, chapter_id, chapterName }) => {
                 <button onClick={() => setOpen(!open)} className=''><img src="../../public/images/cruz.png" className='w-4' alt="" /></button>
             </div>
 
-            <div className='flex flex-col gap-5 w-full h-5/6 p-4 justify-center'>
+            <div className='flex flex-col gap-5 w-full h-5/6 p-4 justify-center min-[320px]:items-center'>
                 {(commentsStore) && commentsStore.loading == true ? (<div className='h-5/6 w-full flex flex-col items-center'><p>Loading...</p><img src="../../public/images/pending.png" className='w-16 object-cover' alt="" /></div>) : null}
 
                 {((commentsStore.comments)?.length > 0) ? (commentsStore.comments.map((comentario) => (
-                    <div className='h-36 w-full rounded-xl border-2 border-[#666] pt-1 px-2' key={comentario._id}>
+                    <div className='h-36 lg:w-full min-[320px]:w-11/12 min-[425px]:w-10/12 rounded-xl border-2 border-[#666] pt-1 px-2' key={comentario._id}>
                         {(user._id === comentario.user_id._id) ?
                             (<CommentAuthor setThisComment={setThisComment} thisComment={thisComment} comentario={comentario} setCommentOpen={setCommentOpen} commentOpen={commentOpen} setEdit={setEdit} setDeleteC={setDeleteC} />)
                             :
