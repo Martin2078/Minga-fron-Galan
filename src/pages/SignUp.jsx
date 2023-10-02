@@ -3,6 +3,7 @@ import axios from "axios";
 import RegisterForm from "../components/RegisterForm";
 import { useNavigate } from "react-router-dom";
 import Alert from "../components/Alert";
+import Swal from 'sweetalert2';
 
 const SignUp =()=>{
 const [dataForAlert, setDataForAlert] = useState([])
@@ -12,6 +13,54 @@ const [show, setShow] = useState(false)
 const [response, setResponse ] = useState(false)
 let dataMessage =[]
 let navigate = useNavigate()
+
+const handleFailure = (result) => {
+    console.log(result);
+  };
+  const handleLogin = async (googleData) => {
+    console.log(googleData)
+    const data = {
+      token: googleData.credential,
+    };
+  
+    try {
+      console.log(data)
+      const res = await axios.post('http://localhost:4000/auth/google-signin', data);
+      let token = res.data.response;
+      dispatch(saveAuthors(token));
+      localStorage.setItem('token', res.data.response.token);
+      localStorage.setItem('user', res.data.response.user.email);
+      navigate("/");
+  
+      if (res.data.response.user.created) {
+        // Mostrar una alerta de registro exitoso si el usuario se acaba de crear
+        Swal.fire({
+          icon: 'success',
+          title: 'Registrado con éxito',
+          text: '¡Tu cuenta ha sido creada y has iniciado sesión con éxito!',
+        });
+      } else {
+        // Mostrar una alerta de inicio de sesión exitoso si el usuario ya existía
+        Swal.fire({
+          icon: 'success',
+          title: 'Inicio de sesión correcto',
+          text: '¡Has iniciado sesión con éxito!',
+        });
+      }
+    } catch (error) {
+        console.log(error);
+      setShow(!show);
+      //setAlert([error.response.data.message]);
+      console.log(error);
+  
+      // Mostrar una alerta de error
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al iniciar sesión con Google',
+        text: 'Ha ocurrido un error al iniciar sesión con Google.',
+      });
+    }
+     }
     const handleCreate = (e,data)=>{
         
         e.preventDefault(); 
@@ -130,7 +179,9 @@ let navigate = useNavigate()
            
           <RegisterForm
           handleCreate = {handleCreate}
+          handleFailure = {handleFailure}
           handleSignUpClick = {handleSignUpClick}
+          handleLogin = {handleLogin}
           />
            </div>
            {show ? <Alert

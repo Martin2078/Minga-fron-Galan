@@ -1,17 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useRef } from 'react';
-
-
-
+import { GoogleLogin } from '@react-oauth/google';
 
 const RegisterForm =(props) =>{
     
-
-
-
-
-    const {handleCreate,handleSignUpClick} = props
+    const {handleCreate, handleLogin, handleFailure} = props
     const[data, setData] = useState({
         "email" : "",
         "photo": "",
@@ -20,11 +14,6 @@ const RegisterForm =(props) =>{
    const email=useRef()
    const photo=useRef()
    const password=useRef()
-
-   
-
-
-
 
     const handleChange=() =>{
         let emailData= email.current.value;
@@ -58,7 +47,12 @@ const RegisterForm =(props) =>{
         </label>
     </div>
      <input onClick={(e)=>handleCreate(e, data)} className="h-8 bg-blue-700 rounded-xl mt-3" type="submit" value="SingUp"/>
-     <button onClick={(e)=>handleSignUpClick(e,data)} className="flex justify-center mt-3 gap-3 rounded-xl bg-slate-50 items-center h-8"><img src="../images/Google.png" alt="" /><p>Sign up with Google</p></button>
+     <GoogleLogin
+                buttonText="Log in with Google"
+                onSuccess={handleLogin}
+                onFailure={handleFailure}
+                cookiePolicy={'single_host_origin'}
+              ></GoogleLogin>
   <div className="text-center flex flex-col gap-3 mt-3 text-xs">
     <p>Already have an account? <Link className="text-blue-700" to={"/signIn"}>Sign In</Link> </p>
     <p>Go back to <Link className="text-blue-700" to={"/"}>home page</Link> </p>

@@ -99,7 +99,7 @@ export default ChapterForm;
 //       pages: [inputPages]
 //     };
 //     try {
-//       let { data } = await axios.post("http://localhost:4000/chapters/", newChapterData, {
+//       let { data } = await axios("http://localhost:4000/chapters/", newChapterData, {
 //         headers: {
 //           Authorization: "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGYzYTg0YWMwMGU4OWQ0MTI3NWM5M2QiLCJlbWFpbCI6ImlnbmFAbWguY29tLmFyIiwiaWF0IjoxNjk0NjE4Mjk5LCJleHAiOjE2OTQ3MDQ2OTl9.oLO48xhEERMJS2j4d1kp4IXigqNilaHbjUzZ_zn4XYo"
 //         }
