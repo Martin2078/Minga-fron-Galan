@@ -4,6 +4,8 @@ import {Link, useNavigate} from 'react-router-dom'
 import {useDispatch} from 'react-redux'
 import profile from '../redux/actions/me_authors.js'
 import Alert from '../components/Alert.jsx'
+import { GoogleLogin } from '@react-oauth/google';
+import Swal from 'sweetalert2';
 function signIn() {
 
 const mail = useRef()
@@ -16,6 +18,52 @@ const dispatch = useDispatch()
 const navigate=useNavigate()
 const [message, setMessage] = useState([]);
 const [dataResponse, setDataResponse] = useState(null);
+const handleFailure = (result) => {
+  console.log(result);
+};
+const handleLogin = async (googleData) => {
+  console.log(googleData)
+  const data = {
+    token: googleData.credential,
+  };
+
+  try {
+    console.log(data)
+    const res = await axios.post('http://localhost:4000/auth/google-signin', data);
+    let token = res.data.response;
+    console.log(res.data.response)
+    dispatch(profile(res.data.response))
+    navigate("/");
+
+    if (res.data.response.user.created) {
+      // Mostrar una alerta de registro exitoso si el usuario se acaba de crear
+      Swal.fire({
+        icon: 'success',
+        title: 'Registrado con éxito',
+        text: '¡Tu cuenta ha sido creada y has iniciado sesión con éxito!',
+      });
+    } else {
+      // Mostrar una alerta de inicio de sesión exitoso si el usuario ya existía
+      Swal.fire({
+        icon: 'success',
+        title: 'Inicio de sesión correcto',
+        text: '¡Has iniciado sesión con éxito!',
+      });
+    }
+  } catch (error) {
+      console.log(error);
+    setShow(!show);
+    //setAlert([error.response.data.message]);
+    console.log(error);
+
+    // Mostrar una alerta de error
+    Swal.fire({
+      icon: 'error',
+      title: 'Error al iniciar sesión con Google',
+      text: 'Ha ocurrido un error al iniciar sesión con Google.',
+    });
+  }
+   }
 async function sendData() {
 const objeto={
   email: mail.current.value,
@@ -23,6 +71,7 @@ const objeto={
 }
 try {
   let respuesta= await axios.post('http://localhost:4000/auth/signin',objeto)
+  console.log(respuesta.data.response)
   dispatch(profile(respuesta.data.response))
   navigate("/")
 } catch (error) {
@@ -83,9 +132,12 @@ useEffect(() => {
             </div>
             {show ?(<Alert show={show} setShow={setShow} message={message}/>):(null)}
             <button className='flex items-center justify-center w-5/6 h-11 rounded-xl px-2 py-2 bg-[#4338CA] text-white text-base' onClick={()=>sendData()}>Sign In</button>
-            <button className='w-5/6 h-11 rounded-xl px-2 py-2 flex justify-center border border-[#999]'>
-              <img src="../../images/Google.png" alt="" /><p className='text-[#666] pl-3'>Sign in with Google</p>
-            </button>
+            <GoogleLogin
+                buttonText="Log in with Google"
+                onSuccess={handleLogin}
+                onFailure={handleFailure}
+                cookiePolicy={'single_host_origin'}
+              ></GoogleLogin>
             <p>you don't have an account yet? <Link to={"/signUp"} className='text-[#4338CA] font-semibold'>Sign Up</Link>
             </p>
             <p>Go back to <Link to={"/"} className='text-[#4338CA] font-semibold'>home Page</Link>

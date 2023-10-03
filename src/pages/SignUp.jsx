@@ -1,5 +1,7 @@
 import React, { useDebugValue, useState }  from "react";
 import axios from "axios";
+import {useDispatch} from 'react-redux'
+
 import RegisterForm from "../components/RegisterForm";
 import { useNavigate } from "react-router-dom";
 import Alert from "../components/Alert";
@@ -27,9 +29,9 @@ const handleFailure = (result) => {
       console.log(data)
       const res = await axios.post('http://localhost:4000/auth/google-signin', data);
       let token = res.data.response;
-      dispatch(saveAuthors(token));
-      localStorage.setItem('token', res.data.response.token);
-      localStorage.setItem('user', res.data.response.user.email);
+      console.log(token)
+      
+
       navigate("/");
   
       if (res.data.response.user.created) {
@@ -90,7 +92,7 @@ const handleFailure = (result) => {
               setShow(!show)
                await axios.post('http://localhost:4000/auth/google-signin', data)
              .then(res =>{ 
-                console.log(res.data.message)
+                dispatch(profile (res.data.message))
                 if(res.data.success){
                     setResponse(true)
                     dataMessage.push(res.data.message)
@@ -128,7 +130,7 @@ const handleFailure = (result) => {
         const create = async (data) =>{
            await axios.post("http://localhost:4000/auth/signup",data)
             .then(res =>{ 
-                console.log(res.data.message)
+                console.log(res.data)
                 if(res.data.success){
                     setResponse(true)
                     dataMessage.push(res.data.message)
