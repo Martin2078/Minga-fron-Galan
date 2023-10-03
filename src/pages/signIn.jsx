@@ -23,6 +23,8 @@ const objeto={
 }
 try {
   let respuesta= await axios.post('http://localhost:4000/auth/signin',objeto)
+  localStorage.setItem('token',respuesta.data.response.token)
+  localStorage.setItem('user',JSON.stringify(respuesta.data.response.findUser))
   dispatch(profile(respuesta.data.response))
   navigate("/")
 } catch (error) {

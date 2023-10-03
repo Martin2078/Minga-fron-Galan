@@ -5,13 +5,12 @@ import { useSelector } from 'react-redux'
 import ButtonNav from './ButtonNav'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
-import profile from '../redux/actions/me_authors'
 import { useNavigate } from 'react-router-dom'
 import logout from '../redux/actions/loggoutAction'
 
 const Display = ({ open, setOpen }) => {
 
-  const { user, token } = useSelector((store) => store.profile)
+  const { user , token } = useSelector((store) => store.profile)
   let author=false
   if(user.role>0){
     author=true }
@@ -21,6 +20,8 @@ const Display = ({ open, setOpen }) => {
     let headers = { headers: { 'Authorization': `Bearer ${token}` } }
     try {
       await axios.post('http://localhost:4000/auth/signout', null, headers)
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
       dispatch(logout())
       navigate("/")
     } catch (error) {
@@ -45,7 +46,7 @@ const Display = ({ open, setOpen }) => {
         <div className='text-white border-b-2 flex flex-col items-center px-3 pt-2 pb-4 gap-4'>
           {!token ? (<p className='font-bold'>Join Us</p>) : null}
           {token ? (<><div className='flex gap-6 items-center'>
-            <Link to={"/Me"}><img src={user.photo} className='w-10 rounded-full' alt="" /></Link>
+            <Link to={"/Me"}><img src={user.photo} className='w-10 h-10 object-center rounded-full' alt="" /></Link>
             <p className='text-base'>{user.email}</p>
           </div>
             <ButtonNav to="/" title="Log out" function={signout} />
